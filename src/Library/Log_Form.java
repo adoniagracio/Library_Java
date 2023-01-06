@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Library;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,29 +20,31 @@ public class Log_Form extends javax.swing.JFrame {
     /**
      * Creates new form Log_Form
      */
+    
     public Log_Form() {
         initComponents();
     }
-    public void cek_login(){
-        Connection kon = Koneksi.koneksiDB();
-        try{
-            Statement st = kon.createStatement();
-            String sql="SELECT * FROM tbl_user WHERE username='"+user.getText()+"' and password='"+pass.getText()+"'";
-            ResultSet rs = st.executeQuery(sql);
-            if(rs.next()){
-                
-            }
-            else{
-              JOptionPane.showMessageDialog(null, "Maaf Password Salah");
-              user.setText("");
-              user.setText("");
-              user.requestFocus();
-            }
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
+//    public void cek_login(){
+//        Connection kon = Koneksi.koneksiDB();
+//        try{
+//            Statement st = kon.createStatement();
+//            String sql="SELECT * FROM tbl_user WHERE username='"+user.getText()+"' and password='"+pass.getText()+"'";
+//            ResultSet rs = st.executeQuery(sql);
+//            if(rs.next()){
+//                
+//            }
+//            else{
+//              JOptionPane.showMessageDialog(null, "Maaf Password Salah");
+//              user.setText("");
+//              user.setText("");
+//              user.requestFocus();
+//            }
+//        }
+//        catch(SQLException e){
+//            JOptionPane.showMessageDialog(null, e);
+//        }
+//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -339,14 +342,52 @@ public class Log_Form extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Log_Form.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        
+        
+        
         //</editor-fold>
-
+        ArrayList<Account> accounts = new ArrayList<Account>();
+        ArrayList<Book> books = new ArrayList<Book>();
+        books = Load("Books");
+        accounts = Load("Accounts");
+        accounts.add(new User("Account0", "asdf"));
+        accounts.add(new User("Account1", "asdf"));
+        accounts.add(new User("Account2", "asdf"));
+        accounts.add(new User("Account3", "asdf"));
+        accounts.add(new User("Account4", "asdf"));
+        books.add(new Book("123456789", "Book 0", "Tolks"));
+        books.add(new Book("123456789", "Book 1", "Tolks"));
+        books.add(new Book("123456789", "Book 2", "Tolks"));
+        books.add(new Book("123456789", "Book 3", "Tolks"));
+        books.add(new Book("123456789", "Book 4", "Tolks"));
+        Save("Books", books);
+        Save("Account", accounts);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Log_Form().setVisible(true);
             }
         });
+    }
+    public static <T> void Save(String name, ArrayList<T> list) {
+        try (FileOutputStream fos = new FileOutputStream(name + ".bin");
+                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> ArrayList<T> Load(String name) {
+        ArrayList<T> list = new ArrayList<>();
+        try (FileInputStream fis = new FileInputStream(name + ".bin");
+                ObjectInputStream ois = new ObjectInputStream(fis)) {
+            list = (ArrayList<T>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
