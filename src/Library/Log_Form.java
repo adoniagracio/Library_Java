@@ -314,7 +314,6 @@ public class Log_Form extends javax.swing.JFrame {
 
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
-        cek_login();
     }//GEN-LAST:event_jPanel4MouseClicked
 
     /**
@@ -378,7 +377,7 @@ public class Log_Form extends javax.swing.JFrame {
         }
     }
 
-    @SuppressWarnings("unchecked")
+//    @SuppressWarnings("unchecked")
     public static <T> ArrayList<T> Load(String name) {
         ArrayList<T> list = new ArrayList<>();
         try (FileInputStream fis = new FileInputStream(name + ".bin");
@@ -410,4 +409,5 @@ public class Log_Form extends javax.swing.JFrame {
     private javax.swing.JPasswordField pass;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
+
 }
