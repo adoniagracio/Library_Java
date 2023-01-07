@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 public abstract class Account implements Serializable {
     private String name;
-    public String pass;
+    private String pass;
     ArrayList<Book> BooksBorrowed = new ArrayList<Book>();
 
     public Account(String name, String pass) {
@@ -38,7 +38,10 @@ public abstract class Account implements Serializable {
     }
 
     public boolean check(String name, String pass) {
-        return ((name == this.name) && (encrypt(pass) == this.pass));
+        System.out.println("Checking " + name + " == " + this.name);
+        if(name.equals(this.name))
+            System.out.println("    " + pass + " with " + this.pass);
+        return ((name.equals(this.name)) && (encrypt(pass).equals(this.pass)));
     }
 
     public String getName() {

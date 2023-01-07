@@ -3,20 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Library;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.time.LocalDate;
-import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author adoni
  */
 public class Log_Form extends javax.swing.JFrame {
-
+    private static db<Account> accountdb = new db<Account>("accountdb");
     /**
      * Creates new form Log_Form
      */
@@ -320,17 +316,26 @@ public class Log_Form extends javax.swing.JFrame {
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel4MouseClicked
-
-    private void SignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignInButtonMouseClicked
-        // TODO add your handling code here:
-        for (Account i : accounts) {
-            System.out.println(i.getName());
-            ArrayList<Book> BooksBorrowed = i.getBooks();
-            for (Book j : BooksBorrowed) {
-                System.out.println("|--> " + j.getTitle());
-                System.out.println("     |-->  Deadline: " + j.getDue());
+    private Account login(){
+        if((user.getText().isEmpty())||(user.getText().isEmpty())){
+            JOptionPane.showMessageDialog(null,"Username or Password cannot be empty!", "Warning", 2);
+            return null;
+        }
+        boolean match = false;
+        for(Account i : accountdb.getList()){
+            if(i.check(user.getText(), pass.getText())){
+                JOptionPane.showMessageDialog(null,"SUCCESS");
+                return i;
             }
         }
+        JOptionPane.showMessageDialog(null,"Incorrect", "Warning", 2);
+        return null;
+    }
+    private void SignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignInButtonMouseClicked
+        // TODO add your handling code here:
+        Account acc = login();
+//        if (acc != null )
+
     }//GEN-LAST:event_SignInButtonMouseClicked
 
     /**
@@ -362,48 +367,17 @@ public class Log_Form extends javax.swing.JFrame {
         
         
         //</editor-fold>
-        ArrayList<Account> accounts = new ArrayList<Account>();
-        ArrayList<Book> books = new ArrayList<Book>();
-        books = Load("Books");
-        accounts = Load("Accounts");
-        accounts.add(new User("Account0", "asdf"));
-        accounts.add(new User("Account1", "asdf"));
-        accounts.add(new User("Account2", "asdf"));
-        accounts.add(new User("Account3", "asdf"));
-        accounts.add(new User("Account4", "asdf"));
-        books.add(new Book("123456789", "Book 0", "Tolks"));
-        books.add(new Book("123456789", "Book 1", "Tolks"));
-        books.add(new Book("123456789", "Book 2", "Tolks"));
-        books.add(new Book("123456789", "Book 3", "Tolks"));
-        books.add(new Book("123456789", "Book 4", "Tolks"));
-        Save("Books", books);
-        Save("Account", accounts);
+        
+        accountdb.Load();
+        accountdb.add(new User("account1", "pass123"));
+        accountdb.add(new Admin("admin", "admin"));
+        accountdb.Save();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Log_Form().setVisible(true);
             }
         });
-    }
-    public static <T> void Save(String name, ArrayList<T> list) {
-        try (FileOutputStream fos = new FileOutputStream(name + ".bin");
-                ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-            oos.writeObject(list);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    @SuppressWarnings("unchecked")
-    public static <T> ArrayList<T> Load(String name) {
-        ArrayList<T> list = new ArrayList<>();
-        try (FileInputStream fis = new FileInputStream(name + ".bin");
-                ObjectInputStream ois = new ObjectInputStream(fis)) {
-            list = (ArrayList<T>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return list;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
