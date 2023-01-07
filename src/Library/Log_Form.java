@@ -369,8 +369,8 @@ public class Log_Form extends javax.swing.JFrame {
         //</editor-fold>
         
         accountdb.Load();
-        accountdb.add(new User("account1", "pass123"));
-        accountdb.add(new Admin("admin", "admin"));
+//        accountdb.add(new User("account1", "pass123"));
+//        accountdb.add(new Admin("admin", "admin"));
         accountdb.Save();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

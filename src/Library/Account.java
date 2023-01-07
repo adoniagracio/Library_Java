@@ -41,6 +41,8 @@ public abstract class Account implements Serializable {
         System.out.println("Checking " + name + " == " + this.name);
         if(name.equals(this.name))
             System.out.println("    " + pass + " with " + this.pass);
+        if(((name.equals(this.name)) && (encrypt(pass).equals(this.pass))))
+            System.out.println("====Found!====");
         return ((name.equals(this.name)) && (encrypt(pass).equals(this.pass)));
     }
 
