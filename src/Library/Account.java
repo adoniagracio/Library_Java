@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 public abstract class Account implements Serializable {
-    private String name;
+    private String user;
     private String pass;
     ArrayList<Book> BooksBorrowed = new ArrayList<Book>();
 
-    public Account(String name, String pass) {
-        this.name = name;
+    public Account(String user, String pass) {
+        System.out.println("Created: " + user);
+        this.user = user;
         this.pass = encrypt(pass);
     }
 
@@ -37,17 +38,17 @@ public abstract class Account implements Serializable {
         return str;
     }
 
-    public boolean check(String name, String pass) {
-        System.out.println("Checking " + name + " == " + this.name);
-        if(name.equals(this.name))
+    public boolean check(String user, String pass) {
+        System.out.println("Checking " + user + " == " + this.user);
+        if(user.equals(this.user))
             System.out.println("    " + pass + " with " + this.pass);
-        if(((name.equals(this.name)) && (encrypt(pass).equals(this.pass))))
+        if(((user.equals(this.user)) && (encrypt(pass).equals(this.pass))))
             System.out.println("====Found!====");
-        return ((name.equals(this.name)) && (encrypt(pass).equals(this.pass)));
+        return ((user.equals(this.user)) && (encrypt(pass).equals(this.pass)));
     }
 
     public String getName() {
-        return this.name;
+        return this.user;
     }
 
     public void Borrow(LocalDate date, Book book) {

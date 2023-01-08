@@ -9,11 +9,23 @@ package Library;
  * @author Adrian
  */
 public class User extends Account {
-    public User(String name, String pass) {
-        super(name, pass);
+    private String name;
+    private String email;
+    private String NIM;
+
+    public User(String NIM, String pass, String name, String email) {
+        super(NIM, pass);
+        this.name = name;
+        this.email = email;
     }
 
-    void menu() { // !harus ada, karena di parent ada abstract menu()
-        System.out.print("User menu!\n");
+    @Override
+    void menu() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public String getEmail(){
+        return this.email;
     }
 }

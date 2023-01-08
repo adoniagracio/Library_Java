@@ -88,11 +88,11 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="user" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="user1" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="NIM" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="name" min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="jSeparator1" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="jSeparator3" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
-                              <Component id="user2" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Component id="email" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="jSeparator4" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="jSeparator2" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
                               <Component id="pass" alignment="0" min="-2" pref="199" max="-2" attributes="0"/>
@@ -128,7 +128,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="user" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="NIM" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -136,7 +136,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="user1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="name" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
@@ -144,7 +144,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="user2" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="email" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
@@ -164,7 +164,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="user">
+        <Component class="javax.swing.JTextField" name="NIM">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cf" green="cc" red="74" type="rgb"/>
@@ -175,7 +175,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NIMActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JPasswordField" name="pass">
@@ -276,7 +276,7 @@
             <Property name="text" type="java.lang.String" value="Email "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="user1">
+        <Component class="javax.swing.JTextField" name="name">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cf" green="cc" red="74" type="rgb"/>
@@ -287,7 +287,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator3">
@@ -297,7 +297,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="user2">
+        <Component class="javax.swing.JTextField" name="email">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="cf" green="cc" red="74" type="rgb"/>
@@ -308,7 +308,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="user2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator4">

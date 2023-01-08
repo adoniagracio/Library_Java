@@ -23,24 +23,25 @@ public class db<T> {
         try (FileOutputStream fos = new FileOutputStream("src/"+ this.name + ".bin");
                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(this.list);
+            System.out.println("Save Success!");
         } catch (IOException e) {
-//            e.printStackTrace();
-            System.out.println("Load Error!");
+            //            e.printStackTrace();
+            System.out.println("Save Error!");
         }
     }
-
+    
    @SuppressWarnings("unchecked")
-    public ArrayList<T> Load() {
+    public void Load() {
         ArrayList<T> list = new ArrayList<>();
         try (FileInputStream fis = new FileInputStream("src/"+ this.name + ".bin");
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
-            list = (ArrayList<T>) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-              System.out.println("Save Error!");
+                    list = (ArrayList<T>) ois.readObject();
+                    System.out.println("Load Success!");
+                } catch (IOException | ClassNotFoundException e) {
+                    //            e.printStackTrace();
+                    System.out.println("Load Error!");
         }
         this.list = list;
-        return list;
     }
     public ArrayList<T> getList(){
         return this.list;

@@ -11,6 +11,7 @@ import javax.swing.JFrame;
  * @author adoni
  */
 public class SignUP_Form extends javax.swing.JFrame {
+    private static db<Account> accountdb = new db<Account>("accountdb");
 
     /**
      * Creates new form SignUP_Form
@@ -29,7 +30,7 @@ public class SignUP_Form extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        user = new javax.swing.JTextField();
+        NIM = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -40,9 +41,9 @@ public class SignUP_Form extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        user1 = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        user2 = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -54,12 +55,12 @@ public class SignUP_Form extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(116, 204, 207));
 
-        user.setBackground(new java.awt.Color(116, 204, 207));
-        user.setText("NIM");
-        user.setBorder(null);
-        user.addActionListener(new java.awt.event.ActionListener() {
+        NIM.setBackground(new java.awt.Color(116, 204, 207));
+        NIM.setText("NIM");
+        NIM.setBorder(null);
+        NIM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userActionPerformed(evt);
+                NIMActionPerformed(evt);
             }
         });
 
@@ -111,23 +112,23 @@ public class SignUP_Form extends javax.swing.JFrame {
 
         jLabel7.setText("Email ");
 
-        user1.setBackground(new java.awt.Color(116, 204, 207));
-        user1.setText("Name");
-        user1.setBorder(null);
-        user1.addActionListener(new java.awt.event.ActionListener() {
+        name.setBackground(new java.awt.Color(116, 204, 207));
+        name.setText("Name");
+        name.setBorder(null);
+        name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user1ActionPerformed(evt);
+                nameActionPerformed(evt);
             }
         });
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
-        user2.setBackground(new java.awt.Color(116, 204, 207));
-        user2.setText("Email");
-        user2.setBorder(null);
-        user2.addActionListener(new java.awt.event.ActionListener() {
+        email.setBackground(new java.awt.Color(116, 204, 207));
+        email.setText("Email");
+        email.setBorder(null);
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                user2ActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
 
@@ -182,11 +183,11 @@ public class SignUP_Form extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(NIM, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(user2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,21 +214,21 @@ public class SignUP_Form extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NIM, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9)
-                    .addComponent(user1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel10)
-                    .addComponent(user2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -264,17 +265,17 @@ public class SignUP_Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
+    private void NIMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NIMActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userActionPerformed
+    }//GEN-LAST:event_NIMActionPerformed
 
-    private void user1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user1ActionPerformed
+    private void nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_user1ActionPerformed
+    }//GEN-LAST:event_nameActionPerformed
 
-    private void user2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_user2ActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_user2ActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
     private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
         // TODO add your handling code here:
@@ -286,8 +287,14 @@ public class SignUP_Form extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel12MouseClicked
 
+    private static void createAccount(String NIM, String pass, String name, String email){
+        accountdb.add(new User(NIM, pass, name, email));
+        accountdb.Save();
+    }
+
     private void SignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpButtonMouseClicked
         // TODO add your handling code here:
+        createAccount(NIM.getText().toString(), pass.getText().toString(), name.getText().toString(), email.getText().toString());
         Log_Form rgf = new Log_Form();
         rgf.setVisible(true);
         rgf.pack();
@@ -309,6 +316,7 @@ public class SignUP_Form extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        accountdb.Load();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -336,7 +344,9 @@ public class SignUP_Form extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField NIM;
     private javax.swing.JPanel SignUpButton;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -353,9 +363,7 @@ public class SignUP_Form extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JTextField name;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField user;
-    private javax.swing.JTextField user1;
-    private javax.swing.JTextField user2;
     // End of variables declaration//GEN-END:variables
 }
