@@ -55,7 +55,7 @@ public class SignUP_Form extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(116, 204, 207));
 
         user.setBackground(new java.awt.Color(116, 204, 207));
-        user.setText("Email");
+        user.setText("NIM");
         user.setBorder(null);
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
