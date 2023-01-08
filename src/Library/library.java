@@ -13,5 +13,6 @@ import java.sql.Connection;
 public class library {
     public static void main(String[] args){
         new Log_Form().show();
+        new SignUP_Form().show();
 }
 }

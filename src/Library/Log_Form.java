@@ -4,6 +4,7 @@
  */
 package Library;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -127,7 +128,7 @@ public class Log_Form extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Lock.png"))); // NOI18N
 
         jPanel4.setBackground(new java.awt.Color(187, 210, 211));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel4.setPreferredSize(new java.awt.Dimension(88, 32));
         jPanel4.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
@@ -170,7 +171,12 @@ public class Log_Form extends javax.swing.JFrame {
         );
 
         SignUpButton.setBackground(new java.awt.Color(187, 210, 211));
-        SignUpButton.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        SignUpButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        SignUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SignUpButtonMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Sign Up");
 
@@ -337,6 +343,16 @@ public class Log_Form extends javax.swing.JFrame {
 //        if (acc != null )
 
     }//GEN-LAST:event_SignInButtonMouseClicked
+
+    private void SignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpButtonMouseClicked
+        // TODO add your handling code here:
+        SignUP_Form rgf = new SignUP_Form();
+        rgf.setVisible(true);
+        rgf.pack();
+        rgf.setLocationRelativeTo(null);
+        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.dispose();
+    }//GEN-LAST:event_SignUpButtonMouseClicked
 
     /**
      * @param args the command line arguments
