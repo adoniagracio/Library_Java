@@ -1,3 +1,4 @@
 build/
+build/classes/Library/
 nbproject/
 src/accountdb.bin
