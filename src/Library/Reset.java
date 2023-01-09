@@ -4,6 +4,8 @@
  */
 package Library;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author adoni
