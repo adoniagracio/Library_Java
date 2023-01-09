@@ -58,6 +58,14 @@ public class SignUP_Form extends javax.swing.JFrame {
         NIM.setBackground(new java.awt.Color(116, 204, 207));
         NIM.setText("NIM");
         NIM.setBorder(null);
+        NIM.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                NIMFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                NIMFocusLost(evt);
+            }
+        });
         NIM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NIMActionPerformed(evt);
@@ -67,6 +75,14 @@ public class SignUP_Form extends javax.swing.JFrame {
         pass.setBackground(new java.awt.Color(116, 204, 207));
         pass.setText("Password");
         pass.setBorder(null);
+        pass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passFocusLost(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -115,6 +131,14 @@ public class SignUP_Form extends javax.swing.JFrame {
         name.setBackground(new java.awt.Color(116, 204, 207));
         name.setText("Name");
         name.setBorder(null);
+        name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nameFocusLost(evt);
+            }
+        });
         name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameActionPerformed(evt);
@@ -126,6 +150,14 @@ public class SignUP_Form extends javax.swing.JFrame {
         email.setBackground(new java.awt.Color(116, 204, 207));
         email.setText("Email");
         email.setBorder(null);
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailFocusLost(evt);
+            }
+        });
         email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailActionPerformed(evt);
@@ -306,6 +338,54 @@ public class SignUP_Form extends javax.swing.JFrame {
     private void jLabel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabel12MouseEntered
+
+    private void NIMFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NIMFocusGained
+        if(NIM.getText().equals("NIM")){
+            NIM.setText("");
+        }
+    }//GEN-LAST:event_NIMFocusGained
+
+    private void NIMFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_NIMFocusLost
+        if(NIM.getText().equals("")){
+            NIM.setText("NIM");
+        }
+    }//GEN-LAST:event_NIMFocusLost
+
+    private void nameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusGained
+        if(name.getText().equals("Name")){
+            name.setText("");
+        }
+    }//GEN-LAST:event_nameFocusGained
+
+    private void nameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nameFocusLost
+        if(name.getText().equals("")){
+            name.setText("Name");
+        }
+    }//GEN-LAST:event_nameFocusLost
+
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+        if(email.getText().equals("Email")){
+            email.setText("");
+        }
+    }//GEN-LAST:event_emailFocusGained
+
+    private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
+        if(email.getText().equals("")){
+            email.setText("Email");
+        }
+    }//GEN-LAST:event_emailFocusLost
+
+    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
+        if(pass.getText().equals("Password")){
+            pass.setText("");
+        }
+    }//GEN-LAST:event_passFocusGained
+
+    private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
+        if(pass.getText().equals("")){
+            pass.setText("Password");
+        }
+    }//GEN-LAST:event_passFocusLost
 
     /**
      * @param args the command line arguments

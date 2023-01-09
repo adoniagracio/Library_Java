@@ -111,6 +111,14 @@ public class Log_Form extends javax.swing.JFrame {
         user.setBackground(new java.awt.Color(116, 204, 207));
         user.setText("Username");
         user.setBorder(null);
+        user.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                userFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                userFocusLost(evt);
+            }
+        });
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userActionPerformed(evt);
@@ -120,6 +128,14 @@ public class Log_Form extends javax.swing.JFrame {
         pass.setBackground(new java.awt.Color(116, 204, 207));
         pass.setText("Password");
         pass.setBorder(null);
+        pass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passFocusLost(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -392,6 +408,30 @@ public class Log_Form extends javax.swing.JFrame {
             pass.setEchoChar('*');
         }
     }//GEN-LAST:event_cekboxActionPerformed
+
+    private void userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userFocusGained
+        if(user.getText().equals("Username")){
+            user.setText("");
+        }
+    }//GEN-LAST:event_userFocusGained
+
+    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
+        if(pass.getText().equals("Password")){
+            pass.setText("");
+        }
+    }//GEN-LAST:event_passFocusGained
+
+    private void userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userFocusLost
+        if(user.getText().equals("")){
+            user.setText("Username");
+        }
+    }//GEN-LAST:event_userFocusLost
+
+    private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
+        if(pass.getText().equals("")){
+            pass.setText("Password");
+        }
+    }//GEN-LAST:event_passFocusLost
 
     /**
      * @param args the command line arguments
