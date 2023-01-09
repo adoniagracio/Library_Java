@@ -7,6 +7,7 @@ package Library;
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -195,11 +196,12 @@ public class Reset_pass extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9)
-                    .addComponent(Email_user, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(SendButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SendButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel9)
+                        .addComponent(Email_user, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
@@ -257,6 +259,8 @@ public class Reset_pass extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(Integer.valueOf(Code_ver.getText())==randomCode){
         Reset rs = new Reset(Email_user.getText());
+        rs.pack();
+        rs.setLocationRelativeTo(null);
         rs.setVisible(true);
         this.setVisible(false);
         }else{
@@ -269,31 +273,33 @@ public class Reset_pass extends javax.swing.JFrame {
     try{
         Random rand = new Random();
         randomCode=rand.nextInt(999999);
-        String host = "smtp.gmail.com";
-        String user ="adoniagracio7@gmail.com";
-        String pass="kinibalu1234";
+        final String user ="adoniagracio7@gmail.com";
+        final String pass="jtcotgxqjatidvry";
         String to = Email_user.getText();
         String subject="Reseting Code";
-        String message ="Your reset code is "+randomCode;
-        boolean sessionDebug = false;
+        String msg ="Your reset code is "+randomCode;
         Properties pros = System.getProperties();
-        pros.put("mail.smtp.starttls.enable", "true");
-        pros.put("mail.smtp.host", "host");
-        pros.put("mail.smtp.port","587");
-        pros.put("mail.smtp.auth","true");
-        pros.put("mail.smtp.starttls.required", "true");
-        java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-        Session mailSession = Session.getDefaultInstance(pros, null);
-        mailSession.setDebug(sessionDebug);
-        Message msg = new MimeMessage(mailSession);
-        msg.setFrom(new InternetAddress(user));
-        InternetAddress [] address = {new InternetAddress(to)};
-        msg.setRecipients(Message.RecipientType.TO, address);
-        msg.setSubject(subject);
-        msg.setText(message);
-        Transport transport = mailSession.getTransport("smtp");
-        transport.connect(host, user, pass);
-        transport.sendMessage(msg, msg.getAllRecipients());
+        pros.setProperty("mail.transport.protocol", "smtp");     
+        pros.setProperty("mail.host", "smtp.gmail.com");  
+        pros.put("mail.smtp.auth", "true");  
+        pros.put("mail.smtp.port", "465");    
+        pros.put("mail.smtp.socketFactory.port", "465");  
+        pros.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
+        pros.put("mail.smtp.socketFactory.fallback", "false");
+        Session session = Session.getDefaultInstance(pros,new javax.mail.Authenticator() {
+        protected PasswordAuthentication getPasswordAuthentication() {  
+        return new PasswordAuthentication(user,pass);  
+        }  
+    });
+        Transport transport = session.getTransport();  
+        InternetAddress addressFrom = new InternetAddress(user);  
+        MimeMessage message = new MimeMessage(session);  
+        message.setSender(addressFrom);  
+        message.setSubject(subject);  
+        message.setContent(msg, "text/plain");  
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));  
+        transport.connect();  
+        Transport.send(message);  
         transport.close();
         JOptionPane.showMessageDialog(null, "code has been send to the email");
         }catch(Exception ex){
@@ -341,15 +347,11 @@ public class Reset_pass extends javax.swing.JFrame {
     private javax.swing.JTextField Code_ver;
     private javax.swing.JTextField Email_user;
     private javax.swing.JPanel SendButton3;
-    private javax.swing.JPanel SignUpButton1;
-    private javax.swing.JPanel SignUpButton2;
     private javax.swing.JPanel VerifButton;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
