@@ -4,6 +4,7 @@
  */
 package Library;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -134,6 +135,11 @@ public class Log_Form extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 passFocusLost(evt);
+            }
+        });
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passKeyPressed(evt);
             }
         });
 
@@ -432,6 +438,12 @@ public class Log_Form extends javax.swing.JFrame {
             pass.setText("Password");
         }
     }//GEN-LAST:event_passFocusLost
+
+    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            login();
+        }
+    }//GEN-LAST:event_passKeyPressed
 
     /**
      * @param args the command line arguments
