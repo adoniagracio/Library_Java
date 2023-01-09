@@ -273,8 +273,8 @@ public class Reset_pass extends javax.swing.JFrame {
     try{
         Random rand = new Random();
         randomCode=rand.nextInt(999999);
-        final String user ="adoniagracio7@gmail.com";
-        final String pass="jtcotgxqjatidvry";
+        final String user ="noreply.library1@gmail.com";
+        final String pass="bnfsuydiiaabjvdn";
         String to = Email_user.getText();
         String subject="Reseting Code";
         String msg ="Your reset code is "+randomCode;
