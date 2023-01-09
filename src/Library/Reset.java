@@ -103,12 +103,33 @@ public class Reset extends javax.swing.JFrame {
         });
 
         New_pass.setBackground(new java.awt.Color(116, 204, 207));
-        New_pass.setText("jPasswordField1");
+        New_pass.setText("Password");
         New_pass.setBorder(null);
+        New_pass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                New_passFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                New_passFocusLost(evt);
+            }
+        });
+        New_pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                New_passActionPerformed(evt);
+            }
+        });
 
         confirm.setBackground(new java.awt.Color(116, 204, 207));
-        confirm.setText("jPasswordField2");
+        confirm.setText("Password");
         confirm.setBorder(null);
+        confirm.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                confirmFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                confirmFocusLost(evt);
+            }
+        });
 
         cekbox.setText("View Password");
         cekbox.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +264,37 @@ public class Reset extends javax.swing.JFrame {
     private void cekbox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekbox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cekbox1ActionPerformed
+
+    private void New_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New_passActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_New_passActionPerformed
+
+    private void New_passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_New_passFocusGained
+        if(New_pass.getText().equals("Password")){
+            New_pass.setText("");
+        }
+    }//GEN-LAST:event_New_passFocusGained
+
+    private void New_passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_New_passFocusLost
+        // TODO add your handling code here:
+        if(New_pass.getText().equals("")){
+            New_pass.setText("Password");
+        }
+    }//GEN-LAST:event_New_passFocusLost
+
+    private void confirmFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmFocusGained
+        // TODO add your handling code here:
+        if(confirm.getText().equals("Password")){
+            confirm.setText("");
+        }
+    }//GEN-LAST:event_confirmFocusGained
+
+    private void confirmFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_confirmFocusLost
+        // TODO add your handling code here:
+        if(confirm.getText().equals("")){
+            confirm.setText("Password");
+        }
+    }//GEN-LAST:event_confirmFocusLost
 
     /**
      * @param args the command line arguments

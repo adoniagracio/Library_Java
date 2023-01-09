@@ -94,6 +94,14 @@ public class Reset_pass extends javax.swing.JFrame {
         Email_user.setBackground(new java.awt.Color(116, 204, 207));
         Email_user.setText("Email");
         Email_user.setBorder(null);
+        Email_user.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Email_userFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Email_userFocusLost(evt);
+            }
+        });
         Email_user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Email_userActionPerformed(evt);
@@ -105,6 +113,14 @@ public class Reset_pass extends javax.swing.JFrame {
         Code_ver.setBackground(new java.awt.Color(116, 204, 207));
         Code_ver.setText("Code");
         Code_ver.setBorder(null);
+        Code_ver.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                Code_verFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                Code_verFocusLost(evt);
+            }
+        });
         Code_ver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Code_verActionPerformed(evt);
@@ -307,6 +323,34 @@ public class Reset_pass extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, ex);
         }
     }//GEN-LAST:event_SendButton3MouseClicked
+
+    private void Email_userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Email_userFocusGained
+        // TODO add your handling code here:
+        if(Email_user.getText().equals("Email")){
+            Email_user.setText("");
+        }
+    }//GEN-LAST:event_Email_userFocusGained
+
+    private void Email_userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Email_userFocusLost
+        // TODO add your handling code here:
+        if(Email_user.getText().equals("")){
+            Email_user.setText("Email");
+        }
+    }//GEN-LAST:event_Email_userFocusLost
+
+    private void Code_verFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Code_verFocusGained
+        // TODO add your handling code here:
+        if(Code_ver.getText().equals("Code")){
+            Code_ver.setText("");
+        }
+    }//GEN-LAST:event_Code_verFocusGained
+
+    private void Code_verFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Code_verFocusLost
+        // TODO add your handling code here:
+        if(Code_ver.getText().equals("")){
+            Code_ver.setText("Code");
+        }
+    }//GEN-LAST:event_Code_verFocusLost
 
     /**
      * @param args the command line arguments
