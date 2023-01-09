@@ -342,24 +342,25 @@ public class Log_Form extends javax.swing.JFrame {
     private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel4MouseClicked
-    private Account login(){
+    private void login(){
         if((user.getText().isEmpty())||(user.getText().isEmpty())){
             JOptionPane.showMessageDialog(null,"Username or Password cannot be empty!", "Warning", 2);
-            return null;
+            return;
         }
-        boolean match = false;
         for(Account i : accountdb.getList()){
             if(i.check(user.getText(), pass.getText())){
-                JOptionPane.showMessageDialog(null,"SUCCESS");
-                return i;
+                // JOptionPane.showMessageDialog(null,"SUCCESS");
+                i.menu();
+                this.dispose();
+                return;
             }
         }
         JOptionPane.showMessageDialog(null,"Incorrect", "Warning", 2);
-        return null;
+        return;
     }
     private void SignInButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignInButtonMouseClicked
         // TODO add your handling code here:
-        Account acc = login();
+        login();
 //        if (acc != null )
 
     }//GEN-LAST:event_SignInButtonMouseClicked
@@ -423,8 +424,9 @@ public class Log_Form extends javax.swing.JFrame {
         //</editor-fold>
         
 //        accountdb.add(new User("account1", "pass123"));
-//        accountdb.add(new Admin("admin", "admin"));
-        /* Create and display the form */
+        accountdb.add(new Admin("admin", "admin"));
+        accountdb.Save();
+//        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Log_Form().setVisible(true);

@@ -18,7 +18,10 @@ public class Admin extends Account {
     @Override
     void menu() {
         // TODO Auto-generated method stub
-
+        Dashboard Dashboard = new Dashboard();
+        Dashboard.setVisible(true);
+        Dashboard.pack();
+        Dashboard.setLocationRelativeTo(null);      
     }
 
 }
