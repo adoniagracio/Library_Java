@@ -145,8 +145,6 @@
                       <Component id="add" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                       <Component id="update" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="delete" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tf_phone" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="tf_email" alignment="0" min="-2" pref="145" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -175,15 +173,11 @@
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tf_name" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tf_phone" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tf_email" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="add" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="update" min="-2" max="-2" attributes="0"/>
@@ -237,25 +231,6 @@
               <Font name="SF UI Display" size="12" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Name"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tf_phone">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SF UI Display" size="12" style="0"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Enter phone number"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="0" green="0" red="0" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="SF UI Display" size="12" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Phone"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="add">

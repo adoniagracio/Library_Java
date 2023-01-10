@@ -43,7 +43,18 @@ public class db<T> {
         }
         this.list = list;
     }
+
     public ArrayList<T> getList(){
         return this.list;
+    }
+
+    public int getSize(){
+        return list.size();
+    }
+    
+    public void printData(){
+        for (T element : list) {
+            System.out.println(element);
+        }
     }
 }

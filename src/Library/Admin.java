@@ -14,4 +14,8 @@ public class Admin extends Account {
         super(name, pass);
     }
 
+    public boolean isAdmin(){
+        return true;
+    }
+
 }

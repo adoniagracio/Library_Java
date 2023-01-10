@@ -64,4 +64,20 @@ public abstract class Account implements Serializable {
         return BooksBorrowed;
     }
 
+    public boolean isAdmin(){
+        return false;
+    }
+
+    public String getNIM(){
+        return "";
+    }
+
+    public String getEmail(){
+        return "";
+    }
+
+    public String getNick(){
+        return "";
+    }
+
 }

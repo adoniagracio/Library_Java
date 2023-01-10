@@ -26,87 +26,26 @@ public class ManageUsers extends javax.swing.JFrame {
      * Creates new form ManageBooks
      */
     private static db<Account> accountdb = new db<Account>("accountdb");
-    String userID, name,phone, email;
-    int ln;
+    private static int ln;
     
     private static Account currentAccount;
     public ManageUsers(Account admin) {
         currentAccount = admin;
+        accountdb.Load();
+        ln = accountdb.getSize();
         initComponents();
     }
     
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\users.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\users.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void addData(String userID, String name, String phone, String email){
-        try {
-            RandomAccessFile raf = new RandomAccessFile(f + "\\users.txt", "rw");
-            for(int i = 0; i < ln; i++){
-                raf.readLine();
-            }
-            if(ln > 0) raf.writeBytes("\r\n");
-            raf.writeBytes(userID + " / " + name + " / " + phone + " / " + email);
-            /*
-            raf.writeBytes("User ID: " + userID + "\r\n");
-            raf.writeBytes("Name: " + name + "\r\n");
-            raf.writeBytes("Phone: " + phone + "\r\n");
-            raf.writeBytes("Email: " + email);
-            */
-        } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\users.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\users.txt"));
-            DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-            //String firstLine = br.readLine().trim();
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tblModel.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // DefaultTableModel tblmodel = new DefaultTableModel();
+        // tblmodel.addColumn("User");
+        // tblmodel.addColumn("NIM");
+        // tblmodel.addColumn("Name");
+        // tblmodel.addColumn("Email");
+        // accountdb.Load();
+        // for(Account a : accountdb.getList()){
+        //     tblmodel.addRow(new Object[] {a.getName(), a.getNIM(), a.getNick(), a.getEmail()});
+        // }
     }
 
     /**
@@ -127,8 +66,6 @@ public class ManageUsers extends javax.swing.JFrame {
         tf_userID = new javax.swing.JTextField();
         tf_name = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tf_phone = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         add = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
@@ -207,13 +144,6 @@ public class ManageUsers extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel5.setText("Name");
 
-        tf_phone.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_phone.setToolTipText("Enter phone number");
-
-        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel7.setText("Phone");
-
         add.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
         add.setText("Add");
         add.addActionListener(new java.awt.event.ActionListener() {
@@ -256,8 +186,6 @@ public class ManageUsers extends javax.swing.JFrame {
                     .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(tf_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -280,15 +208,11 @@ public class ManageUsers extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_phone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(62, 62, 62)
                 .addComponent(add)
                 .addGap(18, 18, 18)
                 .addComponent(update)
@@ -302,17 +226,15 @@ public class ManageUsers extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "User ID", "Name", "Phone", "Email"
-            }
-        ));
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("User ID");
+        tblmodel.addColumn("Name");
+        tblmodel.addColumn("Email");
+        accountdb.Load();
+        for(Account a : accountdb.getList()){
+            tblmodel.addRow(new Object[] {a.getName(), a.getNick(), a.getEmail()});
+        }
+        tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
@@ -364,19 +286,16 @@ public class ManageUsers extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        createFolder();
-        readFile();
-        countLines();
-        addData(tf_userID.getText(), tf_name.getText(), tf_phone.getText(), tf_email.getText());
+        accountdb.add(new User(tf_userID.getText(), "password",  tf_name.getText(), tf_email.getText()));
+        accountdb.Save();
         tblModel.addRow(new Object[]{
-            tf_userID.getText(), tf_name.getText(), tf_phone.getText(), tf_email.getText()
+            tf_userID.getText(), tf_name.getText(), tf_email.getText()
         });
-        //tableData();
+        tableData();
         
         JOptionPane.showMessageDialog(this, "Data successfully added.");
         tf_userID.setText("");
         tf_name.setText("");
-        tf_phone.setText("");
         tf_email.setText("");
     }//GEN-LAST:event_addActionPerformed
 
@@ -385,12 +304,10 @@ public class ManageUsers extends javax.swing.JFrame {
         if(tblData.getSelectedRowCount() == 1){
             String userID = tf_userID.getText();
             String name = tf_name.getText();
-            String phone = tf_phone.getText();
             String email = tf_email.getText();
             
             tblModel.setValueAt(userID, tblData.getSelectedRow(), 0);
             tblModel.setValueAt(name, tblData.getSelectedRow(), 1);
-            tblModel.setValueAt(phone, tblData.getSelectedRow(), 2);
             tblModel.setValueAt(email, tblData.getSelectedRow(), 3);
             
             JOptionPane.showMessageDialog(this, "Data successfully updated.");
@@ -422,12 +339,10 @@ public class ManageUsers extends javax.swing.JFrame {
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         String tblUserID = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
         String tblName = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
-        String tblPhone = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         String tblEmail = tblModel.getValueAt(tblData.getSelectedRow(), 3).toString();
         
         tf_userID.setText(tblUserID);
         tf_name.setText(tblName);
-        tf_phone.setText(tblPhone);
         tf_email.setText(tblEmail);
     }//GEN-LAST:event_tblDataMouseClicked
 
@@ -475,7 +390,6 @@ public class ManageUsers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -483,7 +397,6 @@ public class ManageUsers extends javax.swing.JFrame {
     private javax.swing.JTable tblData;
     private javax.swing.JTextField tf_email;
     private javax.swing.JTextField tf_name;
-    private javax.swing.JTextField tf_phone;
     private javax.swing.JTextField tf_userID;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables

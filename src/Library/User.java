@@ -19,7 +19,15 @@ public class User extends Account {
         this.email = email;
     }
 
+    public String getNIM(){
+        return this.NIM;
+    }
+
     public String getEmail(){
         return this.email;
+    }
+
+    public String getNick(){
+        return this.name;
     }
 }
