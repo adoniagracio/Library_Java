@@ -372,7 +372,10 @@ public class Log_Form extends javax.swing.JFrame {
         for(Account i : accountdb.getList()){
             if(i.check(user.getText(), pass.getText())){
                 // JOptionPane.showMessageDialog(null,"SUCCESS");
-                i.menu();
+                Dashboard Dashboard = new Dashboard(i);
+                Dashboard.setVisible(true);
+                Dashboard.pack();
+                Dashboard.setLocationRelativeTo(null); 
                 this.dispose();
                 return;
             }
@@ -477,6 +480,7 @@ public class Log_Form extends javax.swing.JFrame {
         
 //        accountdb.add(new User("account1", "pass123"));
         accountdb.add(new Admin("admin", "admin"));
+        accountdb.add(new Admin("nama", "admin"));
         accountdb.Save();
 //        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

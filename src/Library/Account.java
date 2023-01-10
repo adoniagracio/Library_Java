@@ -50,6 +50,10 @@ public abstract class Account implements Serializable {
     public String getName() {
         return this.user;
     }
+    
+    public void changePass(String pass){
+      this.pass = encrypt(pass);  
+    }
 
     public void Borrow(LocalDate date, Book book) {
         BooksBorrowed.add(book);
@@ -60,5 +64,4 @@ public abstract class Account implements Serializable {
         return BooksBorrowed;
     }
 
-    abstract void menu();
 }

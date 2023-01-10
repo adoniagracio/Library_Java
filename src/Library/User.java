@@ -19,12 +19,6 @@ public class User extends Account {
         this.email = email;
     }
 
-    @Override
-    void menu() {
-        // TODO Auto-generated method stub
-
-    }
-
     public String getEmail(){
         return this.email;
     }

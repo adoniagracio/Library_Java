@@ -12,16 +12,6 @@ public class Admin extends Account {
 
     public Admin(String name, String pass) {
         super(name, pass);
-        // TODO Auto-generated constructor stub
-    }
-
-    @Override
-    void menu() {
-        // TODO Auto-generated method stub
-        Dashboard Dashboard = new Dashboard();
-        Dashboard.setVisible(true);
-        Dashboard.pack();
-        Dashboard.setLocationRelativeTo(null);      
     }
 
 }

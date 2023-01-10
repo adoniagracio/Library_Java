@@ -5,6 +5,7 @@
 package Library;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -236,7 +237,18 @@ public class Reset extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ResetMouseClicked
-
+        if((New_pass.getText().isEmpty())||(confirm.getText().isEmpty())){
+            JOptionPane.showMessageDialog(null,"password cannot be empty!", "Warning", 2);
+            return;
+        }
+        if(New_pass.getText().equals(confirm.getText())){
+            JOptionPane.showMessageDialog(null,"SUCCESS");
+            Log_Form login = new Log_Form();
+            login.setVisible(true);
+            login.pack();
+            login.setLocationRelativeTo(null); 
+            this.dispose();
+        }
     }//GEN-LAST:event_ResetMouseClicked
 
     private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked

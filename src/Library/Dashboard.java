@@ -16,7 +16,9 @@ public class Dashboard extends javax.swing.JFrame {
     /**
      * Creates new form Dashboard
      */
-    public Dashboard() {
+    private static Account currentAccount;
+    public Dashboard(Account admin) {
+        currentAccount = admin;
         initComponents();
     }
     
@@ -130,7 +132,7 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(manageBooksLayout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jLabel9)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         manageBooksLayout.setVerticalGroup(
             manageBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +210,7 @@ public class Dashboard extends javax.swing.JFrame {
         searchBooksLayout.setHorizontalGroup(
             searchBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchBooksLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(searchBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchBooksLayout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -269,7 +271,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         Say_hey.setFont(new java.awt.Font("SF UI Display SemBd", 0, 14)); // NOI18N
         Say_hey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
-        Say_hey.setText("Hello, Admin!");
+        Say_hey.setText("Hello, " + currentAccount.getName() + "!");
 
         logOut.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
         logOut.setForeground(new java.awt.Color(153, 0, 0));
@@ -309,7 +311,7 @@ public class Dashboard extends javax.swing.JFrame {
         issueBookLayout.setHorizontalGroup(
             issueBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, issueBookLayout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(issueBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jLabel12))
@@ -349,7 +351,7 @@ public class Dashboard extends javax.swing.JFrame {
         returnBookLayout.setHorizontalGroup(
             returnBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(returnBookLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(returnBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnBookLayout.createSequentialGroup()
                         .addComponent(jLabel8)
@@ -551,7 +553,7 @@ public class Dashboard extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Dashboard().setVisible(true);
+                new Dashboard(currentAccount).setVisible(true);
             }
         });
     }
