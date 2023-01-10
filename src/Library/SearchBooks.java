@@ -11,10 +11,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -142,7 +149,7 @@ public class SearchBooks extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tf_isbn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        add = new javax.swing.JButton();
+        Search = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
@@ -230,11 +237,11 @@ public class SearchBooks extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel7.setText("ISBN");
 
-        add.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
-        add.setText("Search");
-        add.addActionListener(new java.awt.event.ActionListener() {
+        Search.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
+        Search.setText("Search");
+        Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addActionPerformed(evt);
+                SearchActionPerformed(evt);
             }
         });
 
@@ -262,7 +269,7 @@ public class SearchBooks extends javax.swing.JFrame {
                             .addComponent(tf_author, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
                             .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(add))
+                    .addComponent(Search))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -283,7 +290,7 @@ public class SearchBooks extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(add)
+                .addComponent(Search)
                 .addContainerGap(137, Short.MAX_VALUE))
         );
 
@@ -347,25 +354,48 @@ public class SearchBooks extends javax.swing.JFrame {
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
-
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+    int searchBuku(JTable e, String x,String y,String z, int i, int j) {
+        while (i <= j) {
+            int mid = (i + j) / 2;
+            if (x.equals(tblData.getValueAt(mid, 0))) {
+                tf_title.setText(tblData.getValueAt(mid, 1).toString());
+                tf_author.setText(tblData.getValueAt(mid, 2).toString());
+                tf_isbn.setText(tblData.getValueAt(mid, 3).toString());
+                return 3;
+            } else if (x.compareTo((String) tblData.getValueAt(mid, 0)) < 0) {
+                j = mid - 1;
+            } else {
+                i = mid + 1;
+            }
+        }
+        return 0;
+    }
+        
+    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         //gabisa nampilin data dr notepad ke tabel
         //tmbhin kalo null
-        DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
+        TableRowSorter<TableModel> tblModel = new TableRowSorter<>(tblData.getModel());
+        tblData.setRowSorter(tblModel);
+        List<RowSorter.SortKey> ka = new ArrayList<>();
+        int kolomke = 0;
+        ka.add(new RowSorter.SortKey(kolomke, SortOrder.ASCENDING));
+        tblModel.setSortKeys(ka);
+        tblModel.sort();
         createFolder();
         readFile();
         countLines();
         addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText());
-        tblModel.addRow(new Object[]{
-            tf_title.getText(), tf_author.getText(), tf_isbn.getText()
-        });
-        //tableData();
-        
-        JOptionPane.showMessageDialog(this, "Data successfully added.");
-        tf_title.setText("");
-        tf_author.setText("");
-        tf_isbn.setText("");
-    }//GEN-LAST:event_addActionPerformed
+        try {
+            int index = searchBuku(tblData, tf_title.getText(),tf_author.getText(),tf_isbn.getText(), 0, tblData.getRowCount());
+            if (index == -1) {
+                JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
+            } else {
+                JOptionPane.showMessageDialog(null, "Data ditemukan");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
+        }
+    }//GEN-LAST:event_SearchActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         tableData();
@@ -432,7 +462,7 @@ public class SearchBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
+    private javax.swing.JButton Search;
     private javax.swing.JLabel back;
     private javax.swing.JLabel close;
     private javax.swing.JComboBox<String> jComboBox1;
