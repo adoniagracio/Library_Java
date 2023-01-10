@@ -58,14 +58,14 @@ public class ManageBooks extends javax.swing.JFrame {
         }
     }
     
-    void addData(String title, String author, String isbn){
+    void addData(String title, String author, String isbn, String status){
         try {
             RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
             for(int i = 0; i < ln; i++){
                 raf.readLine();
             }
             if(ln > 0) raf.writeBytes("\r\n");
-            raf.writeBytes(title + " / " + author + " / " + isbn);
+            raf.writeBytes(title + " / " + author + " / " + isbn + " / " + status);
             /*
             raf.writeBytes("Title: " + title + "\r\n");
             raf.writeBytes("Author: " + author + "\r\n");
@@ -142,11 +142,11 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tf_isbn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         add = new javax.swing.JButton();
         update = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
+        cb_status = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
 
@@ -233,14 +233,9 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel7.setText("ISBN");
 
-        jTextField4.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jTextField4.setForeground(new java.awt.Color(255, 0, 0));
-        jTextField4.setText("//mau pake qty ato ga");
-        jTextField4.setToolTipText("Enter quantity");
-
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel9.setText("Quantity");
+        jLabel9.setText("Status");
 
         add.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
         add.setText("Add");
@@ -258,14 +253,16 @@ public class ManageBooks extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(153, 51, 0));
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        delete.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
+        delete.setForeground(new java.awt.Color(153, 51, 0));
+        delete.setText("Delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                deleteActionPerformed(evt);
             }
         });
+
+        cb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Available", "Unavailable"}));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -273,24 +270,21 @@ public class ManageBooks extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(tf_author, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(tf_title)
+                    .addComponent(jLabel5)
+                    .addComponent(tf_author)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addComponent(tf_isbn))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(111, 111, 111))
+                    .addComponent(cb_status, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -311,13 +305,13 @@ public class ManageBooks extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(cb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(add)
                 .addGap(18, 18, 18)
                 .addComponent(update)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(delete)
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
@@ -334,7 +328,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title", "Author", "ISBN", "Quantity"
+                "Title", "Author", "ISBN", "Status"
             }
         ));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -389,9 +383,9 @@ public class ManageBooks extends javax.swing.JFrame {
         createFolder();
         readFile();
         countLines();
-        addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText());
+        addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex()));
         tblModel.addRow(new Object[]{
-            tf_title.getText(), tf_author.getText(), tf_isbn.getText()
+            tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())
         });
         //tableData();
         
@@ -407,10 +401,12 @@ public class ManageBooks extends javax.swing.JFrame {
             String title = tf_title.getText();
             String author = tf_author.getText();
             String isbn = tf_isbn.getText();
+            String status = cb_status.getItemAt(cb_status.getSelectedIndex());
             
             tblModel.setValueAt(title, tblData.getSelectedRow(), 0);
             tblModel.setValueAt(author, tblData.getSelectedRow(), 1);
             tblModel.setValueAt(isbn, tblData.getSelectedRow(), 2);
+            tblModel.setValueAt(status, tblData.getSelectedRow(), 3);
             
             JOptionPane.showMessageDialog(this, "Data successfully updated.");
         }
@@ -419,7 +415,7 @@ public class ManageBooks extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(this, "No row selected.");
     }//GEN-LAST:event_updateActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         if(tblData.getSelectedRowCount() == 1){
             tblModel.removeRow(tblData.getSelectedRow());
@@ -427,7 +423,7 @@ public class ManageBooks extends javax.swing.JFrame {
         }
         else if(tblData.getRowCount() == 0) JOptionPane.showMessageDialog(this, "Table is empty.");
         else JOptionPane.showMessageDialog(this, "No row selected.");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_deleteActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         tableData();
@@ -489,8 +485,9 @@ public class ManageBooks extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JLabel back;
+    private javax.swing.JComboBox<String> cb_status;
     private javax.swing.JLabel close;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton delete;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -499,7 +496,6 @@ public class ManageBooks extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblData;
     private javax.swing.JTextField tf_author;
     private javax.swing.JTextField tf_isbn;
