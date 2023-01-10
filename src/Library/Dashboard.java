@@ -433,25 +433,25 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logOutActionPerformed
 
     private void manageBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageBooksMouseClicked
-        ManageBooks books = new ManageBooks();
+        ManageBooks books = new ManageBooks(currentAccount);
         books.setVisible(true);
         dispose();
     }//GEN-LAST:event_manageBooksMouseClicked
 
     private void manageUsersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_manageUsersMouseClicked
-        ManageUsers users = new ManageUsers();
+        ManageUsers users = new ManageUsers(currentAccount);
         users.setVisible(true);
         dispose();
     }//GEN-LAST:event_manageUsersMouseClicked
 
     private void issueBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_issueBookMouseClicked
-        IssueBooks books = new IssueBooks();
+        IssueBooks books = new IssueBooks(currentAccount);
         books.setVisible(true);
         dispose();
     }//GEN-LAST:event_issueBookMouseClicked
 
     private void returnBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnBookMouseClicked
-        ReturnBooks books = new ReturnBooks();
+        ReturnBooks books = new ReturnBooks(currentAccount);
         books.setVisible(true);
         dispose();
     }//GEN-LAST:event_returnBookMouseClicked
@@ -511,13 +511,13 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_recordsMouseExited
 
     private void searchBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchBooksMouseClicked
-        SearchBooks search = new SearchBooks();
+        SearchBooks search = new SearchBooks(currentAccount);
         search.setVisible(true);
         dispose();
     }//GEN-LAST:event_searchBooksMouseClicked
 
     private void recordsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recordsMouseClicked
-        Records rec = new Records();
+        Records rec = new Records(currentAccount);
         rec.setVisible(true);
         dispose();
     }//GEN-LAST:event_recordsMouseClicked

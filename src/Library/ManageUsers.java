@@ -25,10 +25,13 @@ public class ManageUsers extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
+    private static db<Account> accountdb = new db<Account>("accountdb");
     String userID, name,phone, email;
     int ln;
     
-    public ManageUsers() {
+    private static Account currentAccount;
+    public ManageUsers(Account admin) {
+        currentAccount = admin;
         initComponents();
     }
     
@@ -354,7 +357,7 @@ public class ManageUsers extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -459,7 +462,7 @@ public class ManageUsers extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageUsers().setVisible(true);
+                new ManageUsers(currentAccount).setVisible(true);
             }
         });
     }

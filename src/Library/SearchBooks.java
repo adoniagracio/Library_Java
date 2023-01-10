@@ -30,7 +30,9 @@ public class SearchBooks extends javax.swing.JFrame {
     int ln, row = 0;
     //int qty;
     
-    public SearchBooks() {
+    private static Account currentAccount;
+    public SearchBooks(Account acc) {
+        currentAccount = acc;
         initComponents();
     }
     
@@ -341,7 +343,7 @@ public class SearchBooks extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -424,7 +426,7 @@ public class SearchBooks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchBooks().setVisible(true);
+                new SearchBooks(currentAccount).setVisible(true);
             }
         });
     }

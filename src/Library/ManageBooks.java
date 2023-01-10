@@ -30,7 +30,9 @@ public class ManageBooks extends javax.swing.JFrame {
     int ln, row = 0;
     //int qty;
     
-    public ManageBooks() {
+    private static Account currentAccount;
+    public ManageBooks(Account admin) {
+        currentAccount = admin;
         initComponents();
     }
     
@@ -375,7 +377,7 @@ public class ManageBooks extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -479,7 +481,7 @@ public class ManageBooks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageBooks().setVisible(true);
+                new ManageBooks(currentAccount).setVisible(true);
             }
         });
     }

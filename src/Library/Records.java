@@ -35,7 +35,9 @@ public class Records extends javax.swing.JFrame {
     int ln;
     //int qty;
     
-    public Records() {
+    private static Account currentAccount;
+    public Records(Account acc) {
+        currentAccount = acc;
         initComponents();
     }
     
@@ -263,7 +265,7 @@ public class Records extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -308,7 +310,7 @@ public class Records extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Records().setVisible(true);
+                new Records(currentAccount).setVisible(true);
             }
         });
     }

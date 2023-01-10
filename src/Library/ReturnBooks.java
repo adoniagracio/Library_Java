@@ -18,7 +18,9 @@ public class ReturnBooks extends javax.swing.JFrame {
     String isbn, title, author;
     //int qty;
     
-    public ReturnBooks() {
+    private static Account currentAccount;
+    public ReturnBooks(Account admin) {
+        currentAccount = admin;
         initComponents();
     }
     
@@ -300,7 +302,7 @@ public class ReturnBooks extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -345,7 +347,7 @@ public class ReturnBooks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ReturnBooks().setVisible(true);
+                new ReturnBooks(currentAccount).setVisible(true);
             }
         });
     }

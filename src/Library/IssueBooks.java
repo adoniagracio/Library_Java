@@ -31,8 +31,9 @@ public class IssueBooks extends javax.swing.JFrame {
     String isbn, title, author;
     int ln;
     //int qty;
-    
-    public IssueBooks() {
+    private static Account currentAccount;
+    public IssueBooks(Account acc) {
+        currentAccount = acc;
         initComponents();
     }
     
@@ -525,7 +526,7 @@ public class IssueBooks extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard(null);
+        Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
@@ -594,7 +595,7 @@ public class IssueBooks extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IssueBooks().setVisible(true);
+                new IssueBooks(currentAccount).setVisible(true);
             }
         });
     }
