@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author acer
  */
-public class DashboardUser extends javax.swing.JFrame {
+public class USERSearchBook extends javax.swing.JFrame {
     //BELOM BIKIN UPDATE SM DELETE DI FILE
 
     /**
@@ -34,7 +34,7 @@ public class DashboardUser extends javax.swing.JFrame {
     //int qty;
     
     private static Account currentAccount;
-    public DashboardUser(Account user) {
+    public USERSearchBook(Account user) {
         currentAccount = user;
         initComponents();
     }
@@ -59,7 +59,7 @@ public class DashboardUser extends javax.swing.JFrame {
                 FileWriter fw = new FileWriter(f + "\\books.txt");
                 System.out.println("File created.");
             } catch (IOException ex1) {
-                Logger.getLogger(DashboardUser.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex1);
             }
         }
     }
@@ -73,9 +73,9 @@ public class DashboardUser extends javax.swing.JFrame {
             }
             System.out.println("Number of lines: " + ln);
         } catch(FileNotFoundException ex){
-           Logger.getLogger(DashboardUser.class.getName()).log(Level.SEVERE, null, ex);
+           Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DashboardUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -91,7 +91,7 @@ public class DashboardUser extends javax.swing.JFrame {
                 tbl.addRow(dataRow);
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(DashboardUser.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -119,6 +119,11 @@ public class DashboardUser extends javax.swing.JFrame {
         Say_hey4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Say_hey5 = new javax.swing.JLabel();
+        Say_hey1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblData = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -168,12 +173,10 @@ public class DashboardUser extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(214, 229, 229));
         jPanel2.setPreferredSize(new java.awt.Dimension(210, 410));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Say_hey.setFont(new java.awt.Font("SF UI Display SemBd", 0, 14)); // NOI18N
         Say_hey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
         Say_hey.setText("Hello, (User)!");
-        jPanel2.add(Say_hey, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, -1, -1));
 
         logout.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
         logout.setForeground(new java.awt.Color(153, 51, 0));
@@ -184,7 +187,6 @@ public class DashboardUser extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(214, 229, 229));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -217,9 +219,7 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 210, -1));
-
-        jPanel4.setBackground(new java.awt.Color(214, 229, 229));
+        jPanel4.setBackground(new java.awt.Color(187, 210, 211));
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel4MouseEntered(evt);
@@ -249,8 +249,6 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addComponent(Say_hey4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, -1));
 
         jPanel5.setBackground(new java.awt.Color(214, 229, 229));
         jPanel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -283,7 +281,63 @@ public class DashboardUser extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, -1, -1));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(Say_hey))
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(logout))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(Say_hey)
+                .addGap(75, 75, 75)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(128, 128, 128)
+                .addComponent(logout))
+        );
+
+        Say_hey1.setFont(new java.awt.Font("SF UI Display ExtBd", 0, 14)); // NOI18N
+        Say_hey1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
+        Say_hey1.setText("Search Books");
+
+        jTextField1.setToolTipText("Search Issued Books");
+
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        tblData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title", "ISBN", "Author", "Status"
+            }
+        ));
+        jScrollPane1.setViewportView(tblData);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -292,14 +346,32 @@ public class DashboardUser extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Say_hey1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Say_hey1)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         setSize(new java.awt.Dimension(802, 443));
@@ -330,11 +402,11 @@ public class DashboardUser extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel3MouseExited
 
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
-        jPanel4.setBackground(mouseEnterColor);
+
     }//GEN-LAST:event_jPanel4MouseEntered
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
-        jPanel4.setBackground(mouseExitColor);
+
     }//GEN-LAST:event_jPanel4MouseExited
 
     private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
@@ -344,6 +416,10 @@ public class DashboardUser extends javax.swing.JFrame {
     private void jPanel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseExited
         jPanel5.setBackground(mouseExitColor);
     }//GEN-LAST:event_jPanel5MouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,14 +438,56 @@ public class DashboardUser extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DashboardUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(USERSearchBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DashboardUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(USERSearchBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DashboardUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(USERSearchBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DashboardUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(USERSearchBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
+        //</editor-fold>
+        //ArrayList<Book> books = new ArrayList<Book>();
+        //books.add(e);
         //</editor-fold>
         //ArrayList<Book> books = new ArrayList<Book>();
         //books.add(e);
@@ -380,23 +498,28 @@ public class DashboardUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DashboardUser(currentAccount).setVisible(true);
+                new USERSearchBook(currentAccount).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Say_hey;
+    private javax.swing.JLabel Say_hey1;
     private javax.swing.JLabel Say_hey2;
     private javax.swing.JLabel Say_hey4;
     private javax.swing.JLabel Say_hey5;
     private javax.swing.JLabel close;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel logout;
+    private javax.swing.JTable tblData;
     // End of variables declaration//GEN-END:variables
 }
