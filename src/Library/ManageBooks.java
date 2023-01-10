@@ -375,7 +375,7 @@ public class ManageBooks extends javax.swing.JFrame {
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
         // TODO add your handling code here:
-        Dashboard home = new Dashboard();
+        Dashboard home = new Dashboard(null);
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
