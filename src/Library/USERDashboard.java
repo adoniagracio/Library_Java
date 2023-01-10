@@ -78,22 +78,7 @@ public class USERDashboard extends javax.swing.JFrame {
             Logger.getLogger(USERDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(USERDashboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+
     
     //static Object col[] = {"Title", "Author", "ISBN"};
     //DefaultTableModel tbl = new DefaultTableModel(col, row);
@@ -335,7 +320,7 @@ public class USERDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
+
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked

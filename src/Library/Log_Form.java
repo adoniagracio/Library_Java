@@ -20,7 +20,9 @@ public class Log_Form extends javax.swing.JFrame {
      */
     
     public Log_Form() {
-        accountdb.Load();   
+        accountdb.Load();
+        accountdb.add(new Admin("admin", "admin"));
+        accountdb.add(new Admin("nama", "admin"));
         initComponents();
     }
 //    public void cek_login(){
@@ -375,10 +377,21 @@ public class Log_Form extends javax.swing.JFrame {
         }
         for(Account i : accountdb.getList()){
             if(i.check(user.getText(), pass.getText())){
-                Dashboard Dashboard = new Dashboard(i);
-                Dashboard.setVisible(true);
-                Dashboard.pack();
-                Dashboard.setLocationRelativeTo(null); 
+                System.out.println("isAdmin() = " + i.isAdmin());
+                accountdb.Save();
+                if(i.isAdmin()){
+                    Dashboard Dashboard = new Dashboard(i);
+                    Dashboard.setVisible(true);
+                    Dashboard.pack();
+                    Dashboard.setLocationRelativeTo(null); 
+                }
+                else{
+                    USERDashboard dsh = new USERDashboard(i);
+                    dsh.setVisible(true);
+                    dsh.pack();
+                    dsh.setLocationRelativeTo(null); 
+
+                }
                 this.dispose();
                 return;
             }
@@ -482,10 +495,8 @@ public class Log_Form extends javax.swing.JFrame {
         //</editor-fold>
         
 //        accountdb.add(new User("account1", "pass123"));
-        accountdb.add(new Admin("admin", "admin"));
-        accountdb.add(new Admin("nama", "admin"));
+        
         // accountdb.add(new User("2501", "pass", "nama", "Email"));
-        accountdb.Save();
 //        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
