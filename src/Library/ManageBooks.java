@@ -35,7 +35,6 @@ public class ManageBooks extends javax.swing.JFrame {
     }
     
     void deleteData(){
-        
     }
     
     //static Object col[] = {"Title", "Author", "ISBN"};
@@ -334,6 +333,8 @@ public class ManageBooks extends javax.swing.JFrame {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         if(tblData.getSelectedRowCount() == 1){
+            bookdb.remove(tblData.getSelectedRow());
+            bookdb.Save();
             tblModel.removeRow(tblData.getSelectedRow());
             JOptionPane.showMessageDialog(this, "Data successfully deleted.");
         }
