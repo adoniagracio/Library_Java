@@ -44,8 +44,8 @@ public class Log_Form extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        user = new javax.swing.JTextField();
-        pass = new javax.swing.JPasswordField();
+        username = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -95,42 +95,42 @@ public class Log_Form extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(214, 229, 229));
 
-        user.setBackground(new java.awt.Color(214, 229, 229));
-        user.setText("Username");
-        user.setBorder(null);
-        user.addFocusListener(new java.awt.event.FocusAdapter() {
+        username.setBackground(new java.awt.Color(214, 229, 229));
+        username.setText("Username");
+        username.setBorder(null);
+        username.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                userFocusGained(evt);
+                usernameFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                userFocusLost(evt);
+                usernameFocusLost(evt);
             }
         });
-        user.addActionListener(new java.awt.event.ActionListener() {
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
-        user.addKeyListener(new java.awt.event.KeyAdapter() {
+        username.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                userKeyPressed(evt);
+                usernameKeyPressed(evt);
             }
         });
 
-        pass.setBackground(new java.awt.Color(214, 229, 229));
-        pass.setText("Password");
-        pass.setBorder(null);
-        pass.addFocusListener(new java.awt.event.FocusAdapter() {
+        password.setBackground(new java.awt.Color(214, 229, 229));
+        password.setText("Password");
+        password.setBorder(null);
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                passFocusGained(evt);
+                passwordFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                passFocusLost(evt);
+                passwordFocusLost(evt);
             }
         });
-        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                passKeyPressed(evt);
+                passwordKeyPressed(evt);
             }
         });
 
@@ -272,8 +272,8 @@ public class Log_Form extends javax.swing.JFrame {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(user, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(pass, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                                    .addComponent(username, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -288,12 +288,12 @@ public class Log_Form extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,9 +339,9 @@ public class Log_Form extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
         // TODO add your handling code here:
@@ -360,12 +360,12 @@ public class Log_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel4MouseClicked
     private void login(){
-        if((user.getText().isEmpty())||(user.getText().isEmpty())){
+        if((username.getText().isEmpty())||(username.getText().isEmpty())){
             JOptionPane.showMessageDialog(null,"Username or Password cannot be empty!", "Warning", 2);
             return;
         }
         for(Account i : accountdb.getList()){
-            if(i.check(user.getText(), pass.getText())){
+            if(i.check(username.getText(), password.getText())){
                 System.out.println("isAdmin() = " + i.isAdmin());
                 if(i.isAdmin()){
                     Dashboard Dashboard = new Dashboard(i);
@@ -374,7 +374,7 @@ public class Log_Form extends javax.swing.JFrame {
                     Dashboard.setLocationRelativeTo(null); 
                 }
                 else{
-                    USERDashboard dsh = new USERDashboard(i);
+                    USERSearchBook dsh = new USERSearchBook(i);
                     dsh.setVisible(true);
                     dsh.pack();
                     dsh.setLocationRelativeTo(null); 
@@ -415,48 +415,48 @@ public class Log_Form extends javax.swing.JFrame {
 
     private void cekboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekboxActionPerformed
         if(cekbox.isSelected()){
-            pass.setEchoChar((char)0);          
+            password.setEchoChar((char)0);          
         }
         else{
-            pass.setEchoChar('*');
+            password.setEchoChar('*');
         }
     }//GEN-LAST:event_cekboxActionPerformed
 
-    private void userFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userFocusGained
-        if(user.getText().equals("Username")){
-            user.setText("");
+    private void usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusGained
+        if(username.getText().equals("Username")){
+            username.setText("");
         }
-    }//GEN-LAST:event_userFocusGained
+    }//GEN-LAST:event_usernameFocusGained
 
-    private void passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusGained
-        if(pass.getText().equals("Password")){
-            pass.setText("");
+    private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
+        if(password.getText().equals("Password")){
+            password.setText("");
         }
-    }//GEN-LAST:event_passFocusGained
+    }//GEN-LAST:event_passwordFocusGained
 
-    private void userFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_userFocusLost
-        if(user.getText().equals("")){
-            user.setText("Username");
+    private void usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFocusLost
+        if(username.getText().equals("")){
+            username.setText("Username");
         }
-    }//GEN-LAST:event_userFocusLost
+    }//GEN-LAST:event_usernameFocusLost
 
-    private void passFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passFocusLost
-        if(pass.getText().equals("")){
-            pass.setText("Password");
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
+        if(password.getText().equals("")){
+            password.setText("Password");
         }
-    }//GEN-LAST:event_passFocusLost
+    }//GEN-LAST:event_passwordFocusLost
 
-    private void passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyPressed
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             login();
         }
-    }//GEN-LAST:event_passKeyPressed
+    }//GEN-LAST:event_passwordKeyPressed
 
-    private void userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyPressed
+    private void usernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             login();
         }
-    }//GEN-LAST:event_userKeyPressed
+    }//GEN-LAST:event_usernameKeyPressed
 
     /**
      * @param args the command line arguments
@@ -517,8 +517,8 @@ public class Log_Form extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField user;
+    private javax.swing.JPasswordField password;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
 }

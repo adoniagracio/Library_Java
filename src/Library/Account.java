@@ -23,7 +23,7 @@ public abstract class Account implements Serializable {
 
     public Account(String user, String pass) {
         System.out.println("Created: " + user);
-        
+        this.user = user;
         this.pass = encrypt(pass);
     }
 
@@ -40,7 +40,6 @@ public abstract class Account implements Serializable {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     public boolean check(String user, String pass) {
