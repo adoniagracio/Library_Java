@@ -36,7 +36,8 @@ public class SearchBooks extends javax.swing.JFrame {
     String isbn, title, author;
     int ln, row = 0;
     //int qty;
-    
+
+    private static db<Book> bookdb = new db<Book>("bookdb");
     private static Account currentAccount;
     public SearchBooks(Account acc) {
         currentAccount = acc;
@@ -299,17 +300,16 @@ public class SearchBooks extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ISBN", "Title", "Author", "Quantity"
-            }
-        ));
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
