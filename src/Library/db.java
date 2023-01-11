@@ -18,6 +18,19 @@ public class db<T> {
         list.add(toAdd);
     }
 
+    public void addIndex(int selectedRow, T toAddT) {
+        list.add(selectedRow, toAddT);
+    }
+
+    public void remove(int IndexToRemove){
+        list.remove(IndexToRemove);
+    }
+
+    public void update(int IndexToUpdate, T newValue){
+        list.remove(IndexToUpdate);
+        list.add(IndexToUpdate, newValue);
+    }
+
     public void Save() {
         try (FileOutputStream fos = new FileOutputStream("src/"+ this.name + ".bin");
                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -55,9 +68,5 @@ public class db<T> {
         for (T element : list) {
             System.out.println(element);
         }
-    }
-
-    public void remove(int IndexToRemove){
-        list.remove(IndexToRemove);
     }
 }

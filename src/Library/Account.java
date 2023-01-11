@@ -23,8 +23,12 @@ public abstract class Account implements Serializable {
 
     public Account(String user, String pass) {
         System.out.println("Created: " + user);
-        this.user = user;
+        
         this.pass = encrypt(pass);
+    }
+
+    public void update(String user){
+        this.user = user;
     }
 
     public static String encrypt(String pass){

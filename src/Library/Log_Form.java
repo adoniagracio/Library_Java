@@ -26,7 +26,6 @@ public class Log_Form extends javax.swing.JFrame {
         else{
             accountdb.add(new Admin("admin", "Password"));
             accountdb.add(new Admin("nama", "Password"));
-
             accountdb.Save();
         }
         initComponents();

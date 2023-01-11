@@ -323,6 +323,8 @@ public class ManageBooks extends javax.swing.JFrame {
             tblModel.setValueAt(isbn, tblData.getSelectedRow(), 2);
             tblModel.setValueAt(status, tblData.getSelectedRow(), 3);
             
+            bookdb.update(tblData.getSelectedRow(), new Book(isbn, title, author));
+
             JOptionPane.showMessageDialog(this, "Data successfully updated.");
         }
         

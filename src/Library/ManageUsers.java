@@ -286,6 +286,7 @@ public class ManageUsers extends javax.swing.JFrame {
             tblModel.setValueAt(name, tblData.getSelectedRow(), 1);
             tblModel.setValueAt(email, tblData.getSelectedRow(), 3);
             
+            
             JOptionPane.showMessageDialog(this, "Data successfully updated.");
         }
         
@@ -316,7 +317,7 @@ public class ManageUsers extends javax.swing.JFrame {
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         String tblUserID = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
         String tblName = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
-        String tblEmail = tblModel.getValueAt(tblData.getSelectedRow(), 3).toString();
+        String tblEmail = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         
         tf_userID.setText(tblUserID);
         tf_name.setText(tblName);
