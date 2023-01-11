@@ -5,6 +5,7 @@
 package Library;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -320,19 +321,30 @@ public class SignUP_Form extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel12MouseClicked
 
     private static void createAccount(String NIM, String pass, String name, String email){
+        accountdb.Load();
         accountdb.add(new User(NIM, pass, name, email));
         accountdb.Save();
     }
 
     private void SignUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignUpButtonMouseClicked
-        // TODO add your handling code here:
-        createAccount(NIM.getText().toString(), pass.getText().toString(), name.getText().toString(), email.getText().toString());
-        Log_Form rgf = new Log_Form();
-        rgf.setVisible(true);
-        rgf.pack();
-        rgf.setLocationRelativeTo(null);
-        rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.dispose();
+        boolean match = false;
+        for(Account i : accountdb.getList()){
+            if(i.getName().equals(NIM.getText())){
+                match = true;
+                break;
+            }
+        }
+        if(!match){
+            createAccount(NIM.getText().toString(), pass.getText().toString(), name.getText().toString(), email.getText().toString());
+            Log_Form rgf = new Log_Form();
+            rgf.setVisible(true);
+            rgf.pack();
+            rgf.setLocationRelativeTo(null);
+            rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.dispose();
+        }else {
+            JOptionPane.showMessageDialog(null,"AlreadyExist!", "Warning", 2);
+        }
     }//GEN-LAST:event_SignUpButtonMouseClicked
 
     private void jLabel12MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseEntered

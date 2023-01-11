@@ -5,6 +5,7 @@
 package Library;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,9 +21,12 @@ public class Log_Form extends javax.swing.JFrame {
      */
     
     public Log_Form() {
-        accountdb.Load();
-        accountdb.add(new Admin("admin", "admin"));
-        accountdb.add(new Admin("nama", "admin"));
+        if(new File("src/accountdb.bin").exists())
+            accountdb.Load();
+        else{
+            accountdb.add(new Admin("admin", "Password"));
+            accountdb.Save();
+        }
         initComponents();
     }
 //    public void cek_login(){
@@ -127,6 +131,11 @@ public class Log_Form extends javax.swing.JFrame {
                 userActionPerformed(evt);
             }
         });
+        user.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                userKeyPressed(evt);
+            }
+        });
 
         pass.setBackground(new java.awt.Color(214, 229, 229));
         pass.setText("Password");
@@ -186,7 +195,7 @@ public class Log_Form extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(SignInButton)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,7 +387,6 @@ public class Log_Form extends javax.swing.JFrame {
         for(Account i : accountdb.getList()){
             if(i.check(user.getText(), pass.getText())){
                 System.out.println("isAdmin() = " + i.isAdmin());
-                accountdb.Save();
                 if(i.isAdmin()){
                     Dashboard Dashboard = new Dashboard(i);
                     Dashboard.setVisible(true);
@@ -463,6 +471,12 @@ public class Log_Form extends javax.swing.JFrame {
             login();
         }
     }//GEN-LAST:event_passKeyPressed
+
+    private void userKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_userKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            login();
+        }
+    }//GEN-LAST:event_userKeyPressed
 
     /**
      * @param args the command line arguments

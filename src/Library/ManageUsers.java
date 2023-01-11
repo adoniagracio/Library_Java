@@ -4,15 +4,6 @@
  */
 package Library;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,23 +22,9 @@ public class ManageUsers extends javax.swing.JFrame {
     private static Account currentAccount;
     public ManageUsers(Account admin) {
         currentAccount = admin;
-        accountdb.Load();
         ln = accountdb.getSize();
         initComponents();
     }
-    
-    void tableData(){
-        // DefaultTableModel tblmodel = new DefaultTableModel();
-        // tblmodel.addColumn("User");
-        // tblmodel.addColumn("NIM");
-        // tblmodel.addColumn("Name");
-        // tblmodel.addColumn("Email");
-        // accountdb.Load();
-        // for(Account a : accountdb.getList()){
-        //     tblmodel.addRow(new Object[] {a.getName(), a.getNIM(), a.getNick(), a.getEmail()});
-        // }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,6 +209,7 @@ public class ManageUsers extends javax.swing.JFrame {
         tblmodel.addColumn("Email");
         accountdb.Load();
         for(Account a : accountdb.getList()){
+            if(!a.getName().equals("admin"))
             tblmodel.addRow(new Object[] {a.getName(), a.getNick(), a.getEmail()});
         }
         tblData.setModel(tblmodel);
@@ -273,12 +251,10 @@ public class ManageUsers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_closeMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        // TODO add your handling code here:
         Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
@@ -286,12 +262,12 @@ public class ManageUsers extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        accountdb.add(new User(tf_userID.getText(), "password",  tf_name.getText(), tf_email.getText()));
+        accountdb.add(new User(tf_userID.getText(), "Password",  tf_name.getText(), tf_email.getText()));
         accountdb.Save();
         tblModel.addRow(new Object[]{
             tf_userID.getText(), tf_name.getText(), tf_email.getText()
         });
-        tableData();
+        // tableData();
         
         JOptionPane.showMessageDialog(this, "Data successfully added.");
         tf_userID.setText("");
@@ -320,6 +296,8 @@ public class ManageUsers extends javax.swing.JFrame {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         if(tblData.getSelectedRowCount() == 1){
+            accountdb.remove(tblData.getSelectedRow());
+            accountdb.Save();
             tblModel.removeRow(tblData.getSelectedRow());
             JOptionPane.showMessageDialog(this, "Data successfully deleted.");
         }

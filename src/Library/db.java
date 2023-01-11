@@ -12,7 +12,6 @@ public class db<T> {
     
     public db(String name){
         this.name = name;
-        
     }
     
     public void add(T toAdd){
@@ -56,5 +55,9 @@ public class db<T> {
         for (T element : list) {
             System.out.println(element);
         }
+    }
+
+    public void remove(int IndexToRemove){
+        list.remove(IndexToRemove);
     }
 }
