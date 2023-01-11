@@ -17,6 +17,8 @@ public class Reset extends javax.swing.JFrame {
      */
     public Reset(String Eml) {
         initComponents();
+        this.iconhide2.setVisible(false);
+        this.iconhide1.setVisible(false);
     }
 
     /**
@@ -41,15 +43,20 @@ public class Reset extends javax.swing.JFrame {
         Close = new javax.swing.JLabel();
         New_pass = new javax.swing.JPasswordField();
         confirm = new javax.swing.JPasswordField();
-        cekbox = new javax.swing.JCheckBox();
-        cekbox1 = new javax.swing.JCheckBox();
+        iconshow2 = new javax.swing.JLabel();
+        iconhide2 = new javax.swing.JLabel();
+        iconshow1 = new javax.swing.JLabel();
+        iconhide1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(116, 204, 207));
+        jPanel3.setBackground(new java.awt.Color(214, 229, 229));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setText("New Password");
         jLabel3.setToolTipText("");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(76, 99, -1, -1));
 
         Reset.setBackground(new java.awt.Color(187, 210, 211));
         Reset.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -60,37 +67,41 @@ public class Reset extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel4.setText("Reset");
+        jLabel4.setText("   Reset");
 
         javax.swing.GroupLayout ResetLayout = new javax.swing.GroupLayout(Reset);
         Reset.setLayout(ResetLayout);
         ResetLayout.setHorizontalGroup(
             ResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ResetLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                .addContainerGap())
         );
         ResetLayout.setVerticalGroup(
             ResetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ResetLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
         );
 
-        jLabel8.setFont(new java.awt.Font("Gabriola", 0, 36)); // NOI18N
+        jPanel3.add(Reset, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 216, -1, -1));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         jLabel8.setText("Reset Password");
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 17, -1, -1));
 
         jLabel7.setText("Confirm New Password");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, -1, -1));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 122, 199, 10));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel3.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 172, 199, 10));
 
         jLabel9.setText(":");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 99, -1, -1));
 
         jLabel10.setText(":");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 150, -1, -1));
 
         Close.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Close.setText("X");
@@ -102,8 +113,9 @@ public class Reset extends javax.swing.JFrame {
                 CloseMouseEntered(evt);
             }
         });
+        jPanel3.add(Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, -1, -1));
 
-        New_pass.setBackground(new java.awt.Color(116, 204, 207));
+        New_pass.setBackground(new java.awt.Color(214, 229, 229));
         New_pass.setText("Password");
         New_pass.setBorder(null);
         New_pass.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -119,8 +131,9 @@ public class Reset extends javax.swing.JFrame {
                 New_passActionPerformed(evt);
             }
         });
+        jPanel3.add(New_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 99, 199, -1));
 
-        confirm.setBackground(new java.awt.Color(116, 204, 207));
+        confirm.setBackground(new java.awt.Color(214, 229, 229));
         confirm.setText("Password");
         confirm.setBorder(null);
         confirm.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -131,107 +144,42 @@ public class Reset extends javax.swing.JFrame {
                 confirmFocusLost(evt);
             }
         });
+        jPanel3.add(confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 150, 199, -1));
 
-        cekbox.setText("View Password");
-        cekbox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cekboxActionPerformed(evt);
+        iconshow2.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_eye_24px.png")); // NOI18N
+        iconshow2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconshow2MouseClicked(evt);
             }
         });
+        jPanel3.add(iconshow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
 
-        cekbox1.setText("View Password");
-        cekbox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cekbox1ActionPerformed(evt);
+        iconhide2.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_invisible_24px.png")); // NOI18N
+        iconhide2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconhide2MouseClicked(evt);
             }
         });
+        jPanel3.add(iconhide2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel8)
-                .addGap(184, 184, 184)
-                .addComponent(Close)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel10)))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cekbox))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(New_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cekbox1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Reset, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 107, Short.MAX_VALUE)))
-                        .addGap(33, 33, 33))))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Close)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel8)))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9)
-                    .addComponent(New_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cekbox1))
-                .addGap(7, 7, 7)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10)
-                    .addComponent(confirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cekbox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
+        iconshow1.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_eye_24px.png")); // NOI18N
+        iconshow1.setToolTipText("");
+        iconshow1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconshow1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(iconshow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 566, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 304, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        iconhide1.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_invisible_24px.png")); // NOI18N
+        iconhide1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                iconhide1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(iconhide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 530, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -264,19 +212,6 @@ public class Reset extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_CloseMouseEntered
 
-    private void cekboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekboxActionPerformed
-        if(cekbox.isSelected()){
-            New_pass.setEchoChar((char)0);
-        }
-        else{
-            New_pass.setEchoChar('*');
-        }
-    }//GEN-LAST:event_cekboxActionPerformed
-
-    private void cekbox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekbox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cekbox1ActionPerformed
-
     private void New_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New_passActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_New_passActionPerformed
@@ -307,6 +242,31 @@ public class Reset extends javax.swing.JFrame {
             confirm.setText("Password");
         }
     }//GEN-LAST:event_confirmFocusLost
+
+    private void iconshow2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconshow2MouseClicked
+        // TODO add your handling code here:
+        this.iconhide2.setVisible(true);
+        this.iconshow2.setVisible(false);
+        confirm.setEchoChar((char)0);
+    }//GEN-LAST:event_iconshow2MouseClicked
+
+    private void iconhide2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconhide2MouseClicked
+        // TODO add your handling code here:
+        this.iconshow2.setVisible(true);
+        this.iconhide2.setVisible(false);
+        confirm.setEchoChar('*');
+    }//GEN-LAST:event_iconhide2MouseClicked
+
+    private void iconshow1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconshow1MouseClicked
+        this.iconhide1.setVisible(true);
+        this.iconshow1.setVisible(false);
+        New_pass.setEchoChar((char)0);    }//GEN-LAST:event_iconshow1MouseClicked
+
+    private void iconhide1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconhide1MouseClicked
+        this.iconshow1.setVisible(true);
+        this.iconhide1.setVisible(false);
+        New_pass.setEchoChar('*');
+    }//GEN-LAST:event_iconhide1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -347,9 +307,11 @@ public class Reset extends javax.swing.JFrame {
     private javax.swing.JLabel Close;
     private javax.swing.JPasswordField New_pass;
     private javax.swing.JPanel Reset;
-    private javax.swing.JCheckBox cekbox;
-    private javax.swing.JCheckBox cekbox1;
     private javax.swing.JPasswordField confirm;
+    private javax.swing.JLabel iconhide1;
+    private javax.swing.JLabel iconhide2;
+    private javax.swing.JLabel iconshow1;
+    private javax.swing.JLabel iconshow2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
