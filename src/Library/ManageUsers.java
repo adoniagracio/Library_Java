@@ -209,7 +209,7 @@ public class ManageUsers extends javax.swing.JFrame {
         tblmodel.addColumn("Email");
         accountdb.Load();
         for(Account a : accountdb.getList()){
-            if(!a.getName().equals("admin"))
+            if(!a.isAdmin())
             tblmodel.addRow(new Object[] {a.getName(), a.getNick(), a.getEmail()});
         }
         tblData.setModel(tblmodel);
@@ -310,7 +310,6 @@ public class ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_tf_nameActionPerformed
 
     private void tblDataComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblDataComponentShown
-        tableData();
     }//GEN-LAST:event_tblDataComponentShown
 
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked

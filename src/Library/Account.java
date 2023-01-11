@@ -11,6 +11,10 @@ package Library;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public abstract class Account implements Serializable {
     private String user;
@@ -23,19 +27,16 @@ public abstract class Account implements Serializable {
         this.pass = encrypt(pass);
     }
 
-    private String encrypt(String str) {
-        // MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        // byte[] hash = digest.digest(str.getBytes("UTF-8"));
-        // StringBuffer hexString = new StringBuffer();
+    public static String encrypt(String pass){
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(pass.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
 
-        // for (int i = 0; i < hash.length; i++) {
-        // String hex = Integer.toHexString(0xff & hash[i]);
-        // if (hex.length() == 1)
-        // hexString.append('0');
-        // hexString.append(hex);
-        // }
-        // return hexString.toString();
-        return str;
     }
 
     public boolean check(String user, String pass) {

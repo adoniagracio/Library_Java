@@ -22,10 +22,10 @@ public class db<T> {
         try (FileOutputStream fos = new FileOutputStream("src/"+ this.name + ".bin");
                 ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(this.list);
-            System.out.println("Save Success!");
+            System.out.println("Save \"" + this.name +  "\" Success!");
         } catch (IOException e) {
             //            e.printStackTrace();
-            System.out.println("Save Error!");
+            System.out.println("Save \"" + this.name +  "\" Error!");
         }
     }
     
@@ -35,10 +35,10 @@ public class db<T> {
         try (FileInputStream fis = new FileInputStream("src/"+ this.name + ".bin");
                 ObjectInputStream ois = new ObjectInputStream(fis)) {
                     list = (ArrayList<T>) ois.readObject();
-                    System.out.println("Load Success!");
+                    System.out.println("Load \"" + this.name +  "\" Success!");
                 } catch (IOException | ClassNotFoundException e) {
                     //            e.printStackTrace();
-                    System.out.println("Load Error!");
+                    System.out.println("Load \"" + this.name +  "\" Error!");
         }
         this.list = list;
     }

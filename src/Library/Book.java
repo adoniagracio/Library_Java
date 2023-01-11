@@ -38,6 +38,18 @@ public class Book implements Serializable {
         dueDate = null;
     }
 
+    public String getISBN() {
+        return this.isbn;
+    }
+
+    public String getAuthor(){
+        return this.author;
+    }
+
+    public Boolean getStatus(){
+        return (borrower == null);
+    }
+
     public String getTitle() {
         return this.title;
     }

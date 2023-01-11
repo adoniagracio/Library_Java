@@ -25,31 +25,12 @@ public class Log_Form extends javax.swing.JFrame {
             accountdb.Load();
         else{
             accountdb.add(new Admin("admin", "Password"));
+            accountdb.add(new Admin("nama", "Password"));
+
             accountdb.Save();
         }
         initComponents();
     }
-//    public void cek_login(){
-//        Connection kon = Koneksi.koneksiDB();
-//        try{
-//            Statement st = kon.createStatement();
-//            String sql="SELECT * FROM tbl_user WHERE username='"+user.getText()+"' and password='"+pass.getText()+"'";
-//            ResultSet rs = st.executeQuery(sql);
-//            if(rs.next()){
-//                
-//            }
-//            else{
-//              JOptionPane.showMessageDialog(null, "Maaf Password Salah");
-//              user.setText("");
-//              user.setText("");
-//              user.requestFocus();
-//            }
-//        }
-//        catch(SQLException e){
-//            JOptionPane.showMessageDialog(null, e);
-//        }
-//    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

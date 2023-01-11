@@ -26,97 +26,16 @@ public class ManageBooks extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln, row = 0;
-    //int qty;
     
+    private static db<Book> bookdb = new db<Book>("bookdb");
     private static Account currentAccount;
     public ManageBooks(Account admin) {
         currentAccount = admin;
         initComponents();
     }
     
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void addData(String title, String author, String isbn, String status){
-        try {
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; i < ln; i++){
-                raf.readLine();
-            }
-            if(ln > 0) raf.writeBytes("\r\n");
-            raf.writeBytes(title + " / " + author + " / " + isbn + " / " + status);
-            /*
-            raf.writeBytes("Title: " + title + "\r\n");
-            raf.writeBytes("Author: " + author + "\r\n");
-            raf.writeBytes("ISBN: " + isbn);
-            */
-        } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-    
-    void updateData(String title, String author, String isbn){
-        File oldFile = new File(f + "\\books.txt");
-        File newFile = new File(f + "\\temp.txt");
-        
-    }
-    
     void deleteData(){
         
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     //static Object col[] = {"Title", "Author", "ISBN"};
@@ -320,17 +239,16 @@ public class ManageBooks extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title", "Author", "ISBN", "Status"
-            }
-        ));
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
@@ -380,14 +298,12 @@ public class ManageBooks extends javax.swing.JFrame {
         //gabisa nampilin data dr notepad ke tabel
         //tmbhin kalo null
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        createFolder();
-        readFile();
-        countLines();
-        addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex()));
+        bookdb.getSize();
+        bookdb.add(new Book(tf_isbn.getText(), tf_author.getText(), tf_title.getText()));
+        bookdb.Save();
         tblModel.addRow(new Object[]{
             tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())
         });
-        //tableData();
         
         JOptionPane.showMessageDialog(this, "Data successfully added.");
         tf_title.setText("");
@@ -426,7 +342,6 @@ public class ManageBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
     }//GEN-LAST:event_formComponentShown
 
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
