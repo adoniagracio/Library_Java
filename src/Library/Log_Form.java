@@ -28,6 +28,7 @@ public class Log_Form extends javax.swing.JFrame {
             accountdb.add(new Admin("nama", "Password"));
             accountdb.Save();
         }
+        System.out.println(accountdb.getSize());
         initComponents();
         this.hidepass.setVisible(false);
     }

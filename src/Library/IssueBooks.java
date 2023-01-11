@@ -4,19 +4,11 @@
  */
 package Library;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -28,94 +20,63 @@ public class IssueBooks extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln;
-    //int qty;
+    private static db<Account> accountdb = new db<Account>("accountdb");
+    private static db<Book> bookdb = new db<Book>("bookdb");
+    private static int bookindex = -1; 
+    private static int accountindex = -1; 
     private static Account currentAccount;
     public IssueBooks(Account acc) {
         currentAccount = acc;
         initComponents();
     }
-    
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    void logic(){
-        try {
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "wr");
-            for(int i = 0; i < ln; i++){
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IssueBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            
-    }
-    
-    void searchISBN(){
-        String str;
-        String input = tf_isbn.getText();
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] arr = line.split("/");
 
-                title = arr[0];
-                author = arr[1];
-                isbn = arr[2];
+    private static int searchISBN(String input){
+        bookdb.Load();
+        for (int i = 0; i < bookdb.getSize(); i++) {
+            if (bookdb.getIndex(i).getISBN().equals(input)) {
+                return i;
             }
-            
-            while((str = br.readLine()) != null){
-                if(str.contains(isbn)){
-                    JOptionPane.showMessageDialog(this, "Data successfully added.");
-                    fill_title.setText(title);
-                    fill_author.setText(author);
-                    fill_isbn.setText(isbn);
-                }
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(IssueBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(IssueBooks.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return -1;
+    }
+    private static int searchUser(String user) {
+        accountdb.Load();
+        for (int i=0; i<accountdb.getSize(); i++) {
+            System.out.println("Check " + accountdb.getIndex(i).getName() + " and " + user);
+            if (accountdb.getIndex(i).getName().equals(user)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+        //     String str;
+    //     try {
+    //         // BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
+    //         // Object[] tblLines = br.lines().toArray();
+    //         for(int i = 0; i < tblLines.length; i++){
+    //             String line = tblLines[i].toString().trim();
+    //             String[] arr = line.split("/");
+
+    //             title = arr[0];
+    //             author = arr[1];
+    //             isbn = arr[2];
+    //         }
+            
+    //         while((str = br.readLine()) != null){
+    //             if(str.contains(isbn)){
+    //                 JOptionPane.showMessageDialog(this, "Data successfully added.");
+    //                 fill_title.setText(title);
+    //                 fill_author.setText(author);
+    //                 fill_isbn.setText(isbn);
+    //             }
+    //         }
+    //     } catch (FileNotFoundException ex) {
+    //         Logger.getLogger(IssueBooks.class.getName()).log(Level.SEVERE, null, ex);
+    //     } catch (IOException ex) {
+    //         Logger.getLogger(IssueBooks.class.getName()).log(Level.SEVERE, null, ex);
+    //     }
         
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,7 +99,7 @@ public class IssueBooks extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         tf_returnDate = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        IssueButton = new javax.swing.JButton();
         tf_issueDate = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -217,7 +178,7 @@ public class IssueBooks extends javax.swing.JFrame {
                     .addComponent(jLabel18)
                     .addComponent(jLabel10)
                     .addComponent(close, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(214, 229, 229));
@@ -236,6 +197,11 @@ public class IssueBooks extends javax.swing.JFrame {
 
         tf_userID.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         tf_userID.setToolTipText("Enter user ID");
+        tf_userID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_userIDFocusLost(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
@@ -257,19 +223,22 @@ public class IssueBooks extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel9.setText("Return date");
 
-        jButton1.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jButton1.setText("Issue");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        IssueButton.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        IssueButton.setText("Issue");
+        IssueButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                IssueButtonActionPerformed(evt);
             }
         });
 
         tf_issueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
         tf_issueDate.setToolTipText("Enter issue date");
         tf_issueDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tf_issueDateFocusLost(evt);
+            // public void focusLost(java.awt.event.FocusEvent evt) {
+            //     tf_issueDateFocusLost(evt);
+            // }
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tf_issueDateFocusGained(evt);
             }
         });
 
@@ -280,7 +249,7 @@ public class IssueBooks extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(IssueButton)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -300,7 +269,7 @@ public class IssueBooks extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(86, 86, 86)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -308,7 +277,7 @@ public class IssueBooks extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_userID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_issueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +286,7 @@ public class IssueBooks extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_returnDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(IssueButton)
                 .addContainerGap(97, Short.MAX_VALUE))
         );
 
@@ -427,7 +396,7 @@ public class IssueBooks extends javax.swing.JFrame {
                         .addComponent(jLabel15)
                         .addGap(20, 20, 20)
                         .addComponent(fill_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()    
                         .addComponent(jLabel12)
                         .addGap(26, 26, 26)
                         .addComponent(fill_email, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -444,21 +413,21 @@ public class IssueBooks extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel17)
-                                .addGap(28, 28, 28)
+                                .addGap(18, 18, 18)
                                 .addComponent(fill_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addGap(33, 33, 33)
-                                .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addGap(19, 19, 19)
-                                .addComponent(fill_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addGap(9, 9, 9)
-                                .addComponent(fill_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                                .addComponent(fill_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel19)
+                                .addGap(26, 26, 26)
+                                .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel20)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fill_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -499,19 +468,19 @@ public class IssueBooks extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(fill_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel19)
                             .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
                             .addComponent(fill_author, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel16)
                             .addComponent(fill_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(86, 86, 86)
+                        .addGap(104, 104, 104)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -531,37 +500,83 @@ public class IssueBooks extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void IssueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_IssueButtonActionPerformed
 
     private void tf_returnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_returnDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_returnDateActionPerformed
 
     private void tf_isbnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_isbnFocusLost
-        createFolder();
-        readFile();
-        countLines();
-        searchISBN();
-        
+        String ISBN = tf_isbn.getText();
+        if(!ISBN.isEmpty()){
+            bookindex = searchISBN(ISBN);
+            if(bookindex == -1){
+                JOptionPane.showMessageDialog(this, "Book Not Found!");
+            }
+            else{
+                fill_isbn.setText(bookdb.getIndex(bookindex).getISBN());
+                fill_title.setText(bookdb.getIndex(bookindex).getTitle());
+                fill_author.setText(bookdb.getIndex(bookindex).getAuthor());
+            }
+        }
     }//GEN-LAST:event_tf_isbnFocusLost
 
-    private void tf_issueDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_issueDateFocusLost
+    // private void tf_issueDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_issueDateFocusLost
+    //     //kalo diklik yg lain, jd ilang
+    //     Calendar cal = Calendar.getInstance();
+    //     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    //     if(tf_issueDate.getText().isEmpty())
+    //     tf_issueDate.setText(sdf.format(cal.getTime()));
+    //     else{
+    //         String issueDate = tf_issueDate.getText();
+    //         try{
+    //             cal.setTime(sdf.parse(issueDate));
+    //         } catch(ParseException e){
+    //             e.printStackTrace();
+    //         }
+    //     }
+        
+    //     cal.add(Calendar.DAY_OF_MONTH, 14);
+    //     String returnBook = sdf.format(cal.getTime());
+    //     tf_returnDate.setText(returnBook);
+    // }//GEN-LAST:event_tf_issueDateFocusLost
+
+    private void tf_issueDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_issueDateFocusGained
         //kalo diklik yg lain, jd ilang
-        String issueDate = tf_issueDate.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();
-        try{
-            cal.setTime(sdf.parse(issueDate));
-        } catch(ParseException e){
-            e.printStackTrace();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        if(tf_issueDate.getText().isEmpty())
+        tf_issueDate.setText(sdf.format(cal.getTime()));
+        else{
+            String issueDate = tf_issueDate.getText();
+            try{
+                cal.setTime(sdf.parse(issueDate));
+            } catch(ParseException e){
+                e.printStackTrace();
+            }
         }
         
         cal.add(Calendar.DAY_OF_MONTH, 14);
         String returnBook = sdf.format(cal.getTime());
         tf_returnDate.setText(returnBook);
-    }//GEN-LAST:event_tf_issueDateFocusLost
+    }//GEN-LAST:event_tf_issueDateFocusGained
+
+    private void tf_userIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_userIDFocusLost
+        String UserID = tf_userID.getText();
+        if(!UserID.isEmpty()){
+            accountindex = searchUser(UserID);
+            if(accountindex == -1){
+                JOptionPane.showMessageDialog(this, "User Not Found!");
+            }
+            else{
+                fill_userID.setText(accountdb.getIndex(accountindex).getName());
+                fill_name.setText(accountdb.getIndex(accountindex).getNick());
+                fill_email.setText(accountdb.getIndex(accountindex).getEmail());
+            }
+        }
+    }//GEN-LAST:event_tf_userIDFocusLost
 
     /**
      * @param args the command line arguments
@@ -601,6 +616,7 @@ public class IssueBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton IssueButton;
     private javax.swing.JLabel back;
     private javax.swing.JLabel close;
     private javax.swing.JLabel fill_author;
@@ -611,7 +627,6 @@ public class IssueBooks extends javax.swing.JFrame {
     private javax.swing.JLabel fill_qty;
     private javax.swing.JLabel fill_title;
     private javax.swing.JLabel fill_userID;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

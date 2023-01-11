@@ -59,9 +59,19 @@ public abstract class Account implements Serializable {
       this.pass = encrypt(pass);  
     }
 
-    public void Borrow(LocalDate date, Book book) {
+    public void BorrowBook(LocalDate date, Book book) {
         BooksBorrowed.add(book);
         book.Borrow(this);
+    }
+
+    public void ReturnBook(Book book){
+        if(BooksBorrowed.contains(book)){
+            BooksBorrowed.remove(book);
+            book.Return();
+        }
+        else{
+            System.out.println("Book not found in the Borrowed list!");
+        }
     }
 
     public ArrayList<Book> getBooks() {

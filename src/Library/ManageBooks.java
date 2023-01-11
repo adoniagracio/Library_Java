@@ -298,7 +298,7 @@ public class ManageBooks extends javax.swing.JFrame {
         //tmbhin kalo null
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         bookdb.getSize();
-        bookdb.add(new Book(tf_isbn.getText(), tf_author.getText(), tf_title.getText()));
+        bookdb.add(new Book(tf_isbn.getText(), tf_title.getText(), tf_author.getText()));
         bookdb.Save();
         tblModel.addRow(new Object[]{
             tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())
@@ -324,6 +324,7 @@ public class ManageBooks extends javax.swing.JFrame {
             tblModel.setValueAt(status, tblData.getSelectedRow(), 3);
             
             bookdb.update(tblData.getSelectedRow(), new Book(isbn, title, author));
+            bookdb.Save();
 
             JOptionPane.showMessageDialog(this, "Data successfully updated.");
         }

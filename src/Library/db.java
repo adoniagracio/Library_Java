@@ -15,6 +15,7 @@ public class db<T> {
     }
     
     public void add(T toAdd){
+        System.out.println("Entry added to: " + this.name);
         list.add(toAdd);
     }
 
@@ -23,12 +24,13 @@ public class db<T> {
     }
 
     public void remove(int IndexToRemove){
+        System.out.println(this.name + " " + IndexToRemove + " removed!");
         list.remove(IndexToRemove);
     }
-
+    
     public void update(int IndexToUpdate, T newValue){
-        list.remove(IndexToUpdate);
-        list.add(IndexToUpdate, newValue);
+        System.out.println(this.name + " " + IndexToUpdate + " updated!");
+        list.set(IndexToUpdate, newValue);
     }
 
     public void Save() {
@@ -37,7 +39,6 @@ public class db<T> {
             oos.writeObject(this.list);
             System.out.println("Save \"" + this.name +  "\" Success!");
         } catch (IOException e) {
-            //            e.printStackTrace();
             System.out.println("Save \"" + this.name +  "\" Error!");
         }
     }
@@ -50,7 +51,6 @@ public class db<T> {
                     list = (ArrayList<T>) ois.readObject();
                     System.out.println("Load \"" + this.name +  "\" Success!");
                 } catch (IOException | ClassNotFoundException e) {
-                    //            e.printStackTrace();
                     System.out.println("Load \"" + this.name +  "\" Error!");
         }
         this.list = list;
@@ -58,6 +58,10 @@ public class db<T> {
 
     public ArrayList<T> getList(){
         return this.list;
+    }
+
+    public T getIndex(int index){
+        return list.get(index);
     }
 
     public int getSize(){

@@ -111,22 +111,6 @@ public class SearchBooks extends javax.swing.JFrame {
         }
     }
     
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            //String firstLine = br.readLine().trim();
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(SearchBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     //static Object col[] = {"Title", "Author", "ISBN"};
     //DefaultTableModel tbl = new DefaultTableModel(col, row);
 
@@ -398,15 +382,14 @@ public class SearchBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
     }//GEN-LAST:event_formComponentShown
 
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
         //taro di text field
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        String tblTitle = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
-        String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
-        String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
+        String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
+        String tblTitle = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
+        String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         
         tf_title.setText(tblTitle);
         tf_author.setText(tblAuthor);

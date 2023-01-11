@@ -209,7 +209,6 @@ public class ManageUsers extends javax.swing.JFrame {
         tblmodel.addColumn("Email");
         accountdb.Load();
         for(Account a : accountdb.getList()){
-            if(!a.isAdmin())
             tblmodel.addRow(new Object[] {a.getName(), a.getNick(), a.getEmail()});
         }
         tblData.setModel(tblmodel);
@@ -262,34 +261,48 @@ public class ManageUsers extends javax.swing.JFrame {
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        accountdb.add(new User(tf_userID.getText(), "Password",  tf_name.getText(), tf_email.getText()));
-        accountdb.Save();
-        tblModel.addRow(new Object[]{
-            tf_userID.getText(), tf_name.getText(), tf_email.getText()
-        });
-        // tableData();
-        
-        JOptionPane.showMessageDialog(this, "Data successfully added.");
-        tf_userID.setText("");
-        tf_name.setText("");
-        tf_email.setText("");
+        boolean exists = false;
+        for(Account a : accountdb.getList()){
+            if(a.getName().equals(tf_userID.getText())){
+                JOptionPane.showMessageDialog(this, "Username Already Exist!");
+                exists = true;
+                break;
+            }
+        }
+        if(!exists){
+            accountdb.add(new User(tf_userID.getText(), "Password",  tf_name.getText(), tf_email.getText()));
+            accountdb.Save();
+            tblModel.addRow(new Object[]{
+                tf_userID.getText(), tf_name.getText(), tf_email.getText()
+            });
+            JOptionPane.showMessageDialog(this, "Data successfully added.");
+            tf_userID.setText("");
+            tf_name.setText("");
+            tf_email.setText("");
+        }
     }//GEN-LAST:event_addActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        if(tblData.getSelectedRowCount() == 1){
-            String userID = tf_userID.getText();
-            String name = tf_name.getText();
-            String email = tf_email.getText();
-            
-            tblModel.setValueAt(userID, tblData.getSelectedRow(), 0);
-            tblModel.setValueAt(name, tblData.getSelectedRow(), 1);
-            tblModel.setValueAt(email, tblData.getSelectedRow(), 3);
-            
-            
-            JOptionPane.showMessageDialog(this, "Data successfully updated.");
+        if(tf_userID.getText().isEmpty() || tf_name.getText().isEmpty() || tf_email.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
         }
-        
+        else if(tblData.getSelectedRowCount() == 1){
+            if(!accountdb.getIndex(tblData.getSelectedRow()).isAdmin()){
+                String userID = tf_userID.getText();
+                String name = tf_name.getText();
+                String email = tf_email.getText();
+                tblModel.setValueAt(userID, tblData.getSelectedRow(), 0);
+                tblModel.setValueAt(name, tblData.getSelectedRow(), 1);
+                tblModel.setValueAt(email, tblData.getSelectedRow(), 2);
+                accountdb.update(tblData.getSelectedRow(), new User(userID, "Password", name, email));
+                JOptionPane.showMessageDialog(this, "Data successfully updated.");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "You cannot modify admin!");
+            }
+
+        }
         else if(tblData.getRowCount() == 0) JOptionPane.showMessageDialog(this, "Table is empty.");
         else JOptionPane.showMessageDialog(this, "No row selected.");
     }//GEN-LAST:event_updateActionPerformed
@@ -297,10 +310,15 @@ public class ManageUsers extends javax.swing.JFrame {
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         if(tblData.getSelectedRowCount() == 1){
+            if(!accountdb.getIndex(tblData.getSelectedRow()).isAdmin()){
             accountdb.remove(tblData.getSelectedRow());
             accountdb.Save();
             tblModel.removeRow(tblData.getSelectedRow());
             JOptionPane.showMessageDialog(this, "Data successfully deleted.");
+            }
+            else{
+            JOptionPane.showMessageDialog(this, "You cannot delete admin!");
+            }
         }
         else if(tblData.getRowCount() == 0) JOptionPane.showMessageDialog(this, "Table is empty.");
         else JOptionPane.showMessageDialog(this, "No row selected.");
@@ -350,7 +368,6 @@ public class ManageUsers extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ManageUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //books.add(e);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

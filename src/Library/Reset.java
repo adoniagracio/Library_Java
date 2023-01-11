@@ -109,9 +109,6 @@ public class Reset extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CloseMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                CloseMouseEntered(evt);
-            }
         });
         jPanel3.add(Close, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, -1, -1));
 
@@ -146,7 +143,6 @@ public class Reset extends javax.swing.JFrame {
         });
         jPanel3.add(confirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 150, 199, -1));
 
-        iconshow2.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_eye_24px.png")); // NOI18N
         iconshow2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconshow2MouseClicked(evt);
@@ -154,7 +150,6 @@ public class Reset extends javax.swing.JFrame {
         });
         jPanel3.add(iconshow2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
 
-        iconhide2.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_invisible_24px.png")); // NOI18N
         iconhide2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconhide2MouseClicked(evt);
@@ -162,7 +157,6 @@ public class Reset extends javax.swing.JFrame {
         });
         jPanel3.add(iconhide2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, -1));
 
-        iconshow1.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_eye_24px.png")); // NOI18N
         iconshow1.setToolTipText("");
         iconshow1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -171,7 +165,6 @@ public class Reset extends javax.swing.JFrame {
         });
         jPanel3.add(iconshow1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
-        iconhide1.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_invisible_24px.png")); // NOI18N
         iconhide1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 iconhide1MouseClicked(evt);
@@ -200,17 +193,13 @@ public class Reset extends javax.swing.JFrame {
     }//GEN-LAST:event_ResetMouseClicked
 
     private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CloseMouseClicked
-
-    private void CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseEntered
         Log_Form rgf = new Log_Form();
         rgf.setVisible(true);
         rgf.pack();
         rgf.setLocationRelativeTo(null);
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_CloseMouseEntered
+    }//GEN-LAST:event_CloseMouseClicked
 
     private void New_passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_New_passActionPerformed
         // TODO add your handling code here:
