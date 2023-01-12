@@ -4,15 +4,6 @@
  */
 package Library;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,12 +24,6 @@ public class ManageBooks extends javax.swing.JFrame {
         currentAccount = admin;
         initComponents();
     }
-    
-    void deleteData(){
-    }
-    
-    //static Object col[] = {"Title", "Author", "ISBN"};
-    //DefaultTableModel tbl = new DefaultTableModel(col, row);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,7 +283,7 @@ public class ManageBooks extends javax.swing.JFrame {
         //tmbhin kalo null
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         bookdb.getSize();
-        bookdb.add(new Book(tf_isbn.getText(), tf_title.getText(), tf_author.getText()));
+        bookdb.add(new Book(tf_isbn.getText(), tf_title.getText(), tf_author.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())));
         bookdb.Save();
         tblModel.addRow(new Object[]{
             tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())
@@ -323,7 +308,7 @@ public class ManageBooks extends javax.swing.JFrame {
             tblModel.setValueAt(isbn, tblData.getSelectedRow(), 2);
             tblModel.setValueAt(status, tblData.getSelectedRow(), 3);
             
-            bookdb.update(tblData.getSelectedRow(), new Book(isbn, title, author));
+            bookdb.update(tblData.getSelectedRow(), new Book(isbn, title, author, status));
             bookdb.Save();
 
             JOptionPane.showMessageDialog(this, "Data successfully updated.");

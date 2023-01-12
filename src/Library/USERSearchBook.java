@@ -8,7 +8,6 @@ import Library.Account;
 import Library.Log_Form;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -23,9 +22,6 @@ public class USERSearchBook extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln, row = 0;
-    //int qty;
     
     private static db<Book> bookdb = new db<Book>("bookdb");
     private static int bookindex = -1; 
@@ -427,7 +423,7 @@ public class USERSearchBook extends javax.swing.JFrame {
         tblmodel.addColumn("Status");
         bookdb.Load();
         for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()});
         }
         tblData.setModel(tblmodel);
     }//GEN-LAST:event_formComponentShown

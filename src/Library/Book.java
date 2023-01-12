@@ -16,16 +16,18 @@ public class Book implements Serializable {
     public String isbn;
     public String title;
     public String author;
+    public String status;
     private Boolean available = true;
     private Account borrower = null;
     private LocalDate dueDate = null;
 
     public ArrayList<String> genre = new ArrayList<String>();
 
-    public Book(String isbn, String title, String author) {
+    public Book(String isbn, String title, String author, String status) {
         this.isbn = isbn;
         this.title = title;
         this.author = author;
+        this.status = status;
     }
 
     public void Borrow(Account borrower) {
@@ -56,6 +58,10 @@ public class Book implements Serializable {
 
     public String getTitle() {
         return this.title;
+    }
+    
+    public String getStatus(){
+        return this.status;
     }
 
     public Account getBorrower() {
