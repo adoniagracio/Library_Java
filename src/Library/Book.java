@@ -18,6 +18,7 @@ public class Book implements Serializable {
     public String author;
     private Boolean available = true;
     private Account borrower = null;
+    private LocalDate issueDate = null;
     private LocalDate dueDate = null;
 
     public ArrayList<String> genre = new ArrayList<String>();
@@ -28,16 +29,17 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public void Borrow(Account borrower) {
-        System.out.println(this.title);
+    public void Borrow(Account borrower, LocalDate date) {
         this.borrower = borrower;
+        System.out.println(this.title + " Borrowed by: " + borrower.getName());
         available = false;
-        LocalDate currentDate = LocalDate.now();
-        dueDate = currentDate.plusDays(14);
+        issueDate = LocalDate.now();
+        dueDate = issueDate.plusDays(14);
     }
 
     public void Return() {
         this.borrower = null;
+        issueDate = null;
         dueDate = null;
         available = true;
     }

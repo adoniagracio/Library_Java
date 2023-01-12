@@ -6,6 +6,7 @@ package Library;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -212,7 +213,7 @@ public class IssueBooks extends javax.swing.JFrame {
         tf_returnDate.setToolTipText("Return date");
         tf_returnDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_returnDateActionPerformed(evt);
+                // tf_returnDateActionPerformed(evt);
             }
         });
 
@@ -458,12 +459,10 @@ public class IssueBooks extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_closeMouseClicked
 
     private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        // TODO add your handling code here:
         Dashboard home = new Dashboard(currentAccount);
         home.setVisible(true);
         dispose();
@@ -471,18 +470,17 @@ public class IssueBooks extends javax.swing.JFrame {
 
     private void IssueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueButtonActionPerformed
         if(tf_isbn.getText().isEmpty() || tf_userID.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "FILL");
+            JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
+        }
+        else if(!bookdb.getIndex(bookindex).isAvailable()){
+            JOptionPane.showMessageDialog(this, "Book \"" + bookdb.getIndex(bookindex).getTitle() + "\" is currently unavailable");
         }
         else{
-            Calendar cal = Calendar.getInstance();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            // accountdb.getIndex(accountindex).BorrowBook(sdf.format(cal.getTime()), null);
+            accountdb.getIndex(accountindex).BorrowBook(LocalDate.now(), bookdb.getIndex(bookindex));
+            accountdb.Save();
+            bookdb.Save();
         }
     }//GEN-LAST:event_IssueButtonActionPerformed
-
-    private void tf_returnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_returnDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tf_returnDateActionPerformed
 
     private void tf_isbnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_isbnFocusLost
         String ISBN = tf_isbn.getText();

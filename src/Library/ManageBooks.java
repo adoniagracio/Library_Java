@@ -244,7 +244,7 @@ public class ManageBooks extends javax.swing.JFrame {
         tblmodel.addColumn("Status");
         bookdb.Load();
         for(Book a : bookdb.getList()){
-            tblmodel.addRow(new Object[] {a.getTitle(), a.getAuthor(), a.getISBN(), (a.isAvailable())? "Available" : "Borrowed by: " +  a.getBorrower()});
+            tblmodel.addRow(new Object[] {a.getTitle(), a.getAuthor(), a.getISBN(), (a.isAvailable())? "Available" : "Borrowed by: " +  a.getBorrower().getName()});
         }
         tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
