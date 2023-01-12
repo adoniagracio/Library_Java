@@ -7,17 +7,7 @@ package Library;
 import Library.Account;
 import Library.Log_Form;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,10 +19,8 @@ public class USERManageProfile extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln, row = 0;
-    //int qty;
     
+    private static db<Account> accountdb = new db<Account>("accountdb");
     private static Account currentAccount;
     public USERManageProfile(Account user) {
         currentAccount = user;
@@ -42,61 +30,6 @@ public class USERManageProfile extends javax.swing.JFrame {
     Color mouseEnterColor = new Color(187, 210, 211);
     Color mouseExitColor = new Color(214, 229, 229);
     
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(USERManageProfile.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(USERManageProfile.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(USERManageProfile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(USERManageProfile.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //static Object col[] = {"Title", "Author", "ISBN"};
-    //DefaultTableModel tbl = new DefaultTableModel(col, row);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +52,17 @@ public class USERManageProfile extends javax.swing.JFrame {
         Say_hey4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         Say_hey5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        tf_name = new javax.swing.JTextField();
+        tf_email = new javax.swing.JTextField();
+        tf_nim = new javax.swing.JTextField();
+        update = new javax.swing.JButton();
+        viewpass = new javax.swing.JLabel();
+        tf_pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -194,8 +138,13 @@ public class USERManageProfile extends javax.swing.JFrame {
         });
 
         Say_hey2.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
-        Say_hey2.setText("Issued Books");
+        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
+        Say_hey2.setText("Search Books");
+        Say_hey2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -225,8 +174,13 @@ public class USERManageProfile extends javax.swing.JFrame {
         });
 
         Say_hey4.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
-        Say_hey4.setText("Search Books");
+        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
+        Say_hey4.setText("Issued Books");
+        Say_hey4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -308,6 +262,45 @@ public class USERManageProfile extends javax.swing.JFrame {
                 .addComponent(logout))
         );
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-male-user-96.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
+        jLabel2.setText("NIM: ");
+
+        jLabel4.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
+        jLabel4.setText("Name:");
+
+        jLabel5.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
+        jLabel5.setText("Email:");
+
+        jLabel7.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
+        jLabel7.setText("Pass:");
+
+        tf_name.setToolTipText("");
+
+        tf_email.setToolTipText("");
+
+        tf_nim.setToolTipText("");
+
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
+
+        viewpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-eye-20.png"))); // NOI18N
+        viewpass.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                viewpassMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                viewpassMouseReleased(evt);
+            }
+        });
+
+        tf_pass.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -315,14 +308,55 @@ public class USERManageProfile extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(168, 168, 168)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(jLabel1)
+                    .addComponent(update)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel2))
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tf_nim, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(tf_email, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(tf_name, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(tf_pass))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewpass)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(tf_nim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(tf_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(viewpass)
+                            .addComponent(tf_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(update))))
         );
 
         setSize(new java.awt.Dimension(802, 443));
@@ -335,7 +369,22 @@ public class USERManageProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
+        accountdb.Load();
+        String nim, name, email, pass;
+        for(Account a : accountdb.getList()){
+            if(UserID = currentAccount){
+                nim = tf_nim.getText();
+                name = tf_name.getText();
+                email = tf_email.getText();
+                pass = tf_email.getText();
+            }
+        }
+        
+        tf_nim.setText(nim);
+        tf_name.setText(name);
+        tf_email.setText(email);
+        tf_pass.setText(pass);
+        
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -368,6 +417,43 @@ public class USERManageProfile extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jPanel5MouseExited
 
+    private void Say_hey2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey2MouseClicked
+        USERSearchBook search = new USERSearchBook(currentAccount);
+        search.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey2MouseClicked
+
+    private void Say_hey4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey4MouseClicked
+        USERIssueBook issue = new USERIssueBook(currentAccount);
+        issue.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey4MouseClicked
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+        String nim = tf_nim.getText();
+        String name = tf_name.getText();
+        String email = tf_email.getText();
+        String pass = tf_pass.getText();
+        
+        for (int i=0; i<accountdb.getSize(); i++) {
+            if (accountdb.getIndex(i).getName().equals(user)) {
+                accountdb.update(i, new User(tf_nim.getText(), tf_pass.getText(), tf_name.getText() ,tf_email.getText()));
+            }
+        }
+        accountdb.Save();
+
+
+        JOptionPane.showMessageDialog(this, "Data successfully updated.");
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void viewpassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewpassMousePressed
+        tf_pass.setEchoChar((char)0);
+    }//GEN-LAST:event_viewpassMousePressed
+
+    private void viewpassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewpassMouseReleased
+        tf_pass.setEchoChar('*'); 
+    }//GEN-LAST:event_viewpassMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -384,63 +470,9 @@ public class USERManageProfile extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(USERManageProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(USERManageProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(USERManageProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(USERManageProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -456,12 +488,23 @@ public class USERManageProfile extends javax.swing.JFrame {
     private javax.swing.JLabel Say_hey4;
     private javax.swing.JLabel Say_hey5;
     private javax.swing.JLabel close;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel logout;
+    private javax.swing.JTextField tf_email;
+    private javax.swing.JTextField tf_name;
+    private javax.swing.JTextField tf_nim;
+    private javax.swing.JPasswordField tf_pass;
+    private javax.swing.JButton update;
+    private javax.swing.JLabel viewpass;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,16 +7,6 @@ package Library;
 import Library.Account;
 import Library.Log_Form;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,10 +19,8 @@ public class USERIssueBook extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln, row = 0;
-    //int qty;
     
+    private static db<Book> bookdb = new db<Book>("bookdb");
     private static Account currentAccount;
     public USERIssueBook(Account user) {
         currentAccount = user;
@@ -41,59 +29,6 @@ public class USERIssueBook extends javax.swing.JFrame {
     
     Color mouseEnterColor = new Color(187, 210, 211);
     Color mouseExitColor = new Color(214, 229, 229);
-    
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(USERIssueBook.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(USERIssueBook.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(USERIssueBook.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(USERIssueBook.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     //static Object col[] = {"Title", "Author", "ISBN"};
     //DefaultTableModel tbl = new DefaultTableModel(col, row);
@@ -184,7 +119,7 @@ public class USERIssueBook extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(187, 210, 211));
+        jPanel3.setBackground(new java.awt.Color(214, 229, 229));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel3MouseEntered(evt);
@@ -195,8 +130,13 @@ public class USERIssueBook extends javax.swing.JFrame {
         });
 
         Say_hey2.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
-        Say_hey2.setText("Issued Books");
+        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
+        Say_hey2.setText("Search Books");
+        Say_hey2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -215,7 +155,7 @@ public class USERIssueBook extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(214, 229, 229));
+        jPanel4.setBackground(new java.awt.Color(187, 210, 211));
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel4MouseEntered(evt);
@@ -226,8 +166,8 @@ public class USERIssueBook extends javax.swing.JFrame {
         });
 
         Say_hey4.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
-        Say_hey4.setText("Search Books");
+        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
+        Say_hey4.setText("Issued Books");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -236,7 +176,7 @@ public class USERIssueBook extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(Say_hey4)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +199,11 @@ public class USERIssueBook extends javax.swing.JFrame {
         Say_hey5.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
         Say_hey5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-pencil-drawing-20.png"))); // NOI18N
         Say_hey5.setText("Manage Profile");
+        Say_hey5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -289,25 +234,28 @@ public class USERIssueBook extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(Say_hey1))
             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(logout))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(Say_hey1)
-                .addGap(75, 75, 75)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(105, 105, 105)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(128, 128, 128)
                 .addComponent(logout))
@@ -324,6 +272,11 @@ public class USERIssueBook extends javax.swing.JFrame {
                 "ISBN", "Title", "Issue Date", "Return Date", "Status"
             }
         ));
+        tblData.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                tblDataComponentShown(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblData);
 
         Say_hey.setFont(new java.awt.Font("SF UI Display ExtBd", 0, 14)); // NOI18N
@@ -355,7 +308,7 @@ public class USERIssueBook extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,7 +337,16 @@ public class USERIssueBook extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -394,19 +356,19 @@ public class USERIssueBook extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
-
+            jPanel3.setBackground(mouseEnterColor);
     }//GEN-LAST:event_jPanel3MouseEntered
 
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
-
+            jPanel3.setBackground(mouseExitColor);
     }//GEN-LAST:event_jPanel3MouseExited
 
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
-        jPanel4.setBackground(mouseEnterColor);
+        
     }//GEN-LAST:event_jPanel4MouseEntered
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
-        jPanel4.setBackground(mouseExitColor);
+        
     }//GEN-LAST:event_jPanel4MouseExited
 
     private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
@@ -420,6 +382,22 @@ public class USERIssueBook extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void Say_hey2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey2MouseClicked
+        USERSearchBook search = new USERSearchBook(currentAccount);
+        search.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey2MouseClicked
+
+    private void Say_hey5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey5MouseClicked
+        USERManageProfile profile = new USERManageProfile(currentAccount);
+        profile.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey5MouseClicked
+
+    private void tblDataComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblDataComponentShown
+       
+    }//GEN-LAST:event_tblDataComponentShown
 
     /**
      * @param args the command line arguments

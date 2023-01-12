@@ -7,17 +7,11 @@ package Library;
 import Library.Account;
 import Library.Log_Form;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -33,6 +27,8 @@ public class USERSearchBook extends javax.swing.JFrame {
     int ln, row = 0;
     //int qty;
     
+    private static db<Book> bookdb = new db<Book>("bookdb");
+    private static int bookindex = -1; 
     private static Account currentAccount;
     public USERSearchBook(Account user) {
         currentAccount = user;
@@ -42,58 +38,55 @@ public class USERSearchBook extends javax.swing.JFrame {
     Color mouseEnterColor = new Color(187, 210, 211);
     Color mouseExitColor = new Color(214, 229, 229);
     
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex1);
+    private static int searchTitle(String input){
+        bookdb.Load();
+        for (int i = 0; i < bookdb.getSize(); i++) {
+            if (bookdb.getIndex(i).getTitle().contains(input)) {
+                return i;
             }
         }
+        return -1;
     }
     
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
+    private static int searchAuthor(String input){
+        bookdb.Load();
+        for (int i = 0; i < bookdb.getSize(); i++) {
+            if (bookdb.getIndex(i).getAuthor().contains(input)) {
+                return i;
             }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return -1;
     }
     
-    void tableData(){
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(f + "\\books.txt"));
-            DefaultTableModel tbl = (DefaultTableModel)tblData.getModel();
-            
-            Object[] tblLines = br.lines().toArray();
-            for(int i = 0; i < tblLines.length; i++){
-                String line = tblLines[i].toString().trim();
-                String[] dataRow = line.split("/");
-                tbl.addRow(dataRow);
+    private static int searchISBN(String input){
+        bookdb.Load();
+        for (int i = 0; i < bookdb.getSize(); i++) {
+            if (bookdb.getIndex(i).getISBN().contains(input)) {
+                return i;
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(USERSearchBook.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    
+    /*
+    int searchBuku(JTable e, String x,String y,String z, int i, int j) {
+    while (i <= j) {
+        int mid = (i + j) / 2;
+        if (x.equals(tblData.getValueAt(mid, 0))) {
+
+            tf_title.setText(tblData.getValueAt(mid, 1).toString());
+            tf_author.setText(tblData.getValueAt(mid, 2).toString());
+            tf_isbn.setText(tblData.getValueAt(mid, 3).toString());
+            return 3;
+        } else if (x.compareTo((String) tblData.getValueAt(mid, 0)) < 0) {
+            j = mid - 1;
+        } else {
+            i = mid + 1;
         }
     }
+    return 0;
+    }
+    */
     
     //static Object col[] = {"Title", "Author", "ISBN"};
     //DefaultTableModel tbl = new DefaultTableModel(col, row);
@@ -120,10 +113,11 @@ public class USERSearchBook extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         Say_hey5 = new javax.swing.JLabel();
         Say_hey1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        tf_search = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
+        cb_searchby = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -188,7 +182,7 @@ public class USERSearchBook extends javax.swing.JFrame {
             }
         });
 
-        jPanel3.setBackground(new java.awt.Color(214, 229, 229));
+        jPanel3.setBackground(new java.awt.Color(187, 210, 211));
         jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel3MouseEntered(evt);
@@ -199,8 +193,8 @@ public class USERSearchBook extends javax.swing.JFrame {
         });
 
         Say_hey2.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
-        Say_hey2.setText("Issued Books");
+        Say_hey2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
+        Say_hey2.setText("Search Books");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -219,7 +213,7 @@ public class USERSearchBook extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(187, 210, 211));
+        jPanel4.setBackground(new java.awt.Color(214, 229, 229));
         jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jPanel4MouseEntered(evt);
@@ -230,8 +224,13 @@ public class USERSearchBook extends javax.swing.JFrame {
         });
 
         Say_hey4.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
-        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
-        Say_hey4.setText("Search Books");
+        Say_hey4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-paper-plane-20.png"))); // NOI18N
+        Say_hey4.setText("Issued Books");
+        Say_hey4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -240,7 +239,7 @@ public class USERSearchBook extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(Say_hey4)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,6 +262,11 @@ public class USERSearchBook extends javax.swing.JFrame {
         Say_hey5.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
         Say_hey5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-pencil-drawing-20.png"))); // NOI18N
         Say_hey5.setText("Manage Profile");
+        Say_hey5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -286,28 +290,35 @@ public class USERSearchBook extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(Say_hey))
-            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(logout))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(Say_hey))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(logout)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(Say_hey)
-                .addGap(75, 75, 75)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(105, 105, 105)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(128, 128, 128)
                 .addComponent(logout))
@@ -317,12 +328,17 @@ public class USERSearchBook extends javax.swing.JFrame {
         Say_hey1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-search-20.png"))); // NOI18N
         Say_hey1.setText("Search Books");
 
-        jTextField1.setToolTipText("Search Issued Books");
-
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        tf_search.setToolTipText("Search Books");
+        tf_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                tf_searchActionPerformed(evt);
+            }
+        });
+
+        search.setText("Search");
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
             }
         });
 
@@ -337,7 +353,24 @@ public class USERSearchBook extends javax.swing.JFrame {
                 "Title", "ISBN", "Author", "Status"
             }
         ));
+        tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
         jScrollPane1.setViewportView(tblData);
+
+        cb_searchby.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Title", "Author", "ISBN"}));
+        cb_searchby.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_searchbyActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -351,9 +384,11 @@ public class USERSearchBook extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Say_hey1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cb_searchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
+                        .addComponent(tf_search, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
@@ -366,8 +401,9 @@ public class USERSearchBook extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Say_hey1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(tf_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(search)
+                            .addComponent(cb_searchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -384,7 +420,16 @@ public class USERSearchBook extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        tableData();
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -394,19 +439,19 @@ public class USERSearchBook extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void jPanel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseEntered
-        jPanel3.setBackground(mouseEnterColor);
+
     }//GEN-LAST:event_jPanel3MouseEntered
 
     private void jPanel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseExited
-        jPanel3.setBackground(mouseExitColor);
+        
     }//GEN-LAST:event_jPanel3MouseExited
 
     private void jPanel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseEntered
-
+        jPanel4.setBackground(mouseEnterColor);
     }//GEN-LAST:event_jPanel4MouseEntered
 
     private void jPanel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseExited
-
+        jPanel4.setBackground(mouseExitColor);
     }//GEN-LAST:event_jPanel4MouseExited
 
     private void jPanel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel5MouseEntered
@@ -417,9 +462,53 @@ public class USERSearchBook extends javax.swing.JFrame {
         jPanel5.setBackground(mouseExitColor);
     }//GEN-LAST:event_jPanel5MouseExited
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    private void filter(String query){
+        DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
+        TableRowSorter<DefaultTableModel> tr= new TableRowSorter<DefaultTableModel>(tblModel);
+        tblData.setRowSorter(tr);
+
+        tr.setRowFilter(RowFilter.regexFilter(query.trim()));
+    }
+    
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+        DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
+        bookdb.getSize();
+        String searchby = cb_searchby.getSelectedItem().toString();
+        String search = tf_search.getText();
+        if(!search.isEmpty()){
+            if("Title".equals(searchby)) bookindex = searchTitle(search);
+            if("Author".equals(searchby)) bookindex = searchAuthor(search);
+            if("ISBN".equals(searchby)) bookindex = searchISBN(search);
+            if(bookindex == -1){
+                JOptionPane.showMessageDialog(this, "Book Not Found!");
+            }
+            else{
+                //tblModel.setRowCount(0);
+                filter(search);
+            }
+        }
+    }//GEN-LAST:event_searchActionPerformed
+
+    private void Say_hey4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey4MouseClicked
+        USERIssueBook issue = new USERIssueBook(currentAccount);
+        issue.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey4MouseClicked
+
+    private void Say_hey5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey5MouseClicked
+        USERManageProfile profile = new USERManageProfile(currentAccount);
+        profile.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey5MouseClicked
+
+    private void cb_searchbyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_searchbyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cb_searchbyActionPerformed
+
+    private void tf_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_searchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_searchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -509,8 +598,8 @@ public class USERSearchBook extends javax.swing.JFrame {
     private javax.swing.JLabel Say_hey2;
     private javax.swing.JLabel Say_hey4;
     private javax.swing.JLabel Say_hey5;
+    private javax.swing.JComboBox<String> cb_searchby;
     private javax.swing.JLabel close;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -518,8 +607,9 @@ public class USERSearchBook extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel logout;
+    private javax.swing.JButton search;
     private javax.swing.JTable tblData;
+    private javax.swing.JTextField tf_search;
     // End of variables declaration//GEN-END:variables
 }
