@@ -260,6 +260,10 @@ public class ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        if(tf_userID.getText().isEmpty() || tf_name.getText().isEmpty() || tf_email.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "A field cannot be empty!");
+            return;
+        }
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         boolean exists = false;
         for(Account a : accountdb.getList()){

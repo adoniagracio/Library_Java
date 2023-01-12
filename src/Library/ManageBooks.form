@@ -151,11 +151,11 @@
                       <Component id="update" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="delete" alignment="0" min="-2" pref="72" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tf_title" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tf_isbn" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="tf_author" alignment="0" max="32767" attributes="0"/>
                       <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="tf_isbn" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tf_title" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="111" max="-2" attributes="0"/>
@@ -172,7 +172,7 @@
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" pref="15" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tf_title" min="-2" max="-2" attributes="0"/>
+                  <Component id="tf_isbn" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -180,7 +180,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="tf_isbn" min="-2" max="-2" attributes="0"/>
+                  <Component id="tf_title" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -205,10 +205,10 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SF UI Display" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Title"/>
+            <Property name="text" type="java.lang.String" value="ISBN"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tf_title">
+        <Component class="javax.swing.JTextField" name="tf_isbn">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SF UI Display" size="12" style="0"/>
@@ -219,7 +219,7 @@
             <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
           </AccessibilityProperties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_titleActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tf_isbnActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tf_author">
@@ -241,7 +241,7 @@
             <Property name="text" type="java.lang.String" value="Author"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tf_isbn">
+        <Component class="javax.swing.JTextField" name="tf_title">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SF UI Display" size="12" style="0"/>
@@ -257,7 +257,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="SF UI Display" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ISBN"/>
+            <Property name="text" type="java.lang.String" value="Title"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">

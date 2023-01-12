@@ -188,6 +188,7 @@ public class IssueBooks extends javax.swing.JFrame {
         tf_isbn.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tf_isbnFocusLost(evt);
+                tf_userIDFocusLost(evt);
             }
         });
 
@@ -196,11 +197,6 @@ public class IssueBooks extends javax.swing.JFrame {
         tf_userID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tf_userIDFocusLost(evt);
-            }
-        });
-        tf_userID.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tf_userIDKeyPressed(evt);
             }
         });
 
@@ -238,9 +234,7 @@ public class IssueBooks extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tf_issueDateFocusGained(evt);
             }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tf_issueDateFocusLost(evt);
-            }
+
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -482,7 +476,7 @@ public class IssueBooks extends javax.swing.JFrame {
         else{
             Calendar cal = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            accountdb.getIndex(accountindex).BorrowBook(sdf.format(cal.getTime()), null);
+            // accountdb.getIndex(accountindex).BorrowBook(sdf.format(cal.getTime()), null);
         }
     }//GEN-LAST:event_IssueButtonActionPerformed
 
@@ -505,28 +499,7 @@ public class IssueBooks extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tf_isbnFocusLost
 
-    // private void tf_issueDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_issueDateFocusLost
-    //     //kalo diklik yg lain, jd ilang
-    //     Calendar cal = Calendar.getInstance();
-    //     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    //     if(tf_issueDate.getText().isEmpty())
-    //     tf_issueDate.setText(sdf.format(cal.getTime()));
-    //     else{
-    //         String issueDate = tf_issueDate.getText();
-    //         try{
-    //             cal.setTime(sdf.parse(issueDate));
-    //         } catch(ParseException e){
-    //             e.printStackTrace();
-    //         }
-    //     }
-        
-    //     cal.add(Calendar.DAY_OF_MONTH, 14);
-    //     String returnBook = sdf.format(cal.getTime());
-    //     tf_returnDate.setText(returnBook);
-    // }//GEN-LAST:event_tf_issueDateFocusLost
-
     private void tf_issueDateFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_issueDateFocusGained
-        //kalo diklik yg lain, jd ilang
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         if(tf_issueDate.getText().isEmpty())

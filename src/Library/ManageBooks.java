@@ -55,10 +55,10 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        tf_title = new javax.swing.JTextField();
+        tf_isbn = new javax.swing.JTextField();
         tf_author = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tf_isbn = new javax.swing.JTextField();
+        tf_title = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         add = new javax.swing.JButton();
@@ -127,13 +127,13 @@ public class ManageBooks extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel3.setText("Title");
+        jLabel3.setText("ISBN");
 
-        tf_title.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_title.setToolTipText("Enter book title");
-        tf_title.addActionListener(new java.awt.event.ActionListener() {
+        tf_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_isbn.setToolTipText("Enter book title");
+        tf_isbn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tf_titleActionPerformed(evt);
+                tf_isbnActionPerformed(evt);
             }
         });
 
@@ -144,12 +144,12 @@ public class ManageBooks extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel5.setText("Author");
 
-        tf_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_isbn.setToolTipText("Enter ISBN");
+        tf_title.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_title.setToolTipText("Enter ISBN");
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
         jLabel7.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel7.setText("ISBN");
+        jLabel7.setText("Title");
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
         jLabel9.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
@@ -193,12 +193,11 @@ public class ManageBooks extends javax.swing.JFrame {
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(tf_title)
+                    .addComponent(tf_isbn)
                     .addComponent(jLabel5)
                     .addComponent(tf_author)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel7)
-                        .addComponent(tf_isbn))
+                    .addComponent(jLabel7)
+                    .addComponent(tf_title)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(111, 111, 111))
@@ -211,7 +210,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,7 +218,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -233,7 +232,7 @@ public class ManageBooks extends javax.swing.JFrame {
                 .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        tf_title.getAccessibleContext().setAccessibleDescription("");
+        tf_isbn.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
@@ -244,8 +243,8 @@ public class ManageBooks extends javax.swing.JFrame {
         tblmodel.addColumn("ISBN");
         tblmodel.addColumn("Status");
         bookdb.Load();
-        for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        for(Book a : bookdb.getList()){
+            tblmodel.addRow(new Object[] {a.getTitle(), a.getAuthor(), a.getISBN(), (a.isAvailable())? "Available" : "Borrowed by: " +  a.getBorrower()});
         }
         tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -294,8 +293,10 @@ public class ManageBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseClicked
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        //gabisa nampilin data dr notepad ke tabel
-        //tmbhin kalo null
+        if(tf_isbn.getText().isEmpty() || tf_isbn.getText().isEmpty() || tf_isbn.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "A field cannot be empty");
+            return;
+        }
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         bookdb.getSize();
         bookdb.add(new Book(tf_isbn.getText(), tf_title.getText(), tf_author.getText()));
@@ -303,16 +304,15 @@ public class ManageBooks extends javax.swing.JFrame {
         tblModel.addRow(new Object[]{
             tf_title.getText(), tf_author.getText(), tf_isbn.getText(), cb_status.getItemAt(cb_status.getSelectedIndex())
         });
-        
         JOptionPane.showMessageDialog(this, "Data successfully added.");
-        tf_title.setText("");
+        tf_isbn.setText("");
         tf_author.setText("");
         tf_isbn.setText("");
-    }//GEN-LAST:event_addActionPerformed
-
+    }
+    
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        if(tblData.getSelectedRowCount() == 1){
+      if(tblData.getSelectedRowCount() == 1){
             String title = tf_title.getText();
             String author = tf_author.getText();
             String isbn = tf_isbn.getText();
@@ -355,15 +355,14 @@ public class ManageBooks extends javax.swing.JFrame {
         String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
         String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         
-        tf_title.setText(tblTitle);
+        tf_isbn.setText(tblTitle);
         tf_author.setText(tblAuthor);
         tf_isbn.setText(tblISBN);
     }//GEN-LAST:event_tblDataMouseClicked
 
-    private void tf_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_titleActionPerformed
+    private void tf_isbnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_isbnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tf_titleActionPerformed
-
+    }                      
     /**
      * @param args the command line arguments
      */

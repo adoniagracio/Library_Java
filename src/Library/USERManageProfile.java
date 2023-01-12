@@ -400,11 +400,10 @@ public class USERManageProfile extends javax.swing.JFrame {
         String nim = tf_nim.getText();
         String name = tf_name.getText();
         String email = tf_email.getText();
-        String pass = tf_pass.getText();
         
         for (int i=0; i<accountdb.getSize(); i++) {
             if (accountdb.getIndex(i).getName().equals(currentAccount.getName())) {
-                accountdb.update(i, new User(tf_nim.getText(), tf_pass.getText(), tf_name.getText() ,tf_email.getText()));
+                accountdb.update(i, new User(tf_nim.getText(), "Password ", tf_name.getText() ,tf_email.getText()));
             }
         }
         accountdb.Save();

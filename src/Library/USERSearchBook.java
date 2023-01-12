@@ -413,7 +413,7 @@ public class USERSearchBook extends javax.swing.JFrame {
         tblmodel.addColumn("Status");
         bookdb.Load();
         for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()});
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()});
         }
         tblData.setModel(tblmodel);
     }//GEN-LAST:event_formComponentShown

@@ -344,7 +344,7 @@ public class USERIssueBook extends javax.swing.JFrame {
         tblmodel.addColumn("Status");
         bookdb.Load();
         for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
         }
         tblData.setModel(tblmodel);
     }//GEN-LAST:event_formComponentShown
@@ -424,31 +424,6 @@ public class USERIssueBook extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(USERIssueBook.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        //</editor-fold>
-        //ArrayList<Book> books = new ArrayList<Book>();
-        //books.add(e);
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
