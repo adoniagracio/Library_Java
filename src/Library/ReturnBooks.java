@@ -6,6 +6,8 @@ package Library;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author acer
@@ -15,13 +17,33 @@ public class ReturnBooks extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    //int qty;
-    
+    private static db<Account> accountdb = new db<Account>("accountdb");
+    private static db<Book> bookdb = new db<Book>("bookdb");
+    private static int bookindex = -1; 
+    private static int accountindex = -1; 
     private static Account currentAccount;
     public ReturnBooks(Account admin) {
         currentAccount = admin;
         initComponents();
+    }
+    private static int searchISBN(String input){
+        bookdb.Load();
+        for (int i = 0; i < bookdb.getSize(); i++) {
+            if (bookdb.getIndex(i).getISBN().equals(input)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    private static int searchUser(String user) {
+        accountdb.Load();
+        for (int i=0; i<accountdb.getSize(); i++) {
+            System.out.println("Check " + accountdb.getIndex(i).getName() + " and " + user);
+            if (accountdb.getIndex(i).getName().equals(user)) {
+                return i;
+            }
+        }
+        return -1;
     }
     
     //public boolean addBooks(){
@@ -43,21 +65,21 @@ public class ReturnBooks extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tf_isbn = new javax.swing.JTextField();
+        tf_userID = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Return = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        fill_IssueDate = new javax.swing.JLabel();
+        fill_name = new javax.swing.JLabel();
+        fill_title = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        fill_ReturnDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -115,21 +137,31 @@ public class ReturnBooks extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel3.setText("ISBN");
 
-        jTextField1.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jTextField1.setToolTipText("Enter ISBN");
+        tf_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_isbn.setToolTipText("Enter ISBN");
+        tf_isbn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_isbnFocusLost(evt);
+            }
+        });
 
-        jTextField2.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jTextField2.setToolTipText("Enter user ID");
+        tf_userID.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_userID.setToolTipText("Enter user ID");
+        tf_userID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_userIDFocusLost(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel5.setText("User ID");
 
-        jButton1.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jButton1.setText("Return");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Return.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        Return.setText("Return");
+        Return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ReturnActionPerformed(evt);
             }
         });
 
@@ -148,15 +180,15 @@ public class ReturnBooks extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(Return)
                     .addComponent(jButton2)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(tf_userID, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,19 +197,19 @@ public class ReturnBooks extends javax.swing.JFrame {
                 .addGap(117, 117, 117)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tf_userID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(Return)
                 .addContainerGap(135, Short.MAX_VALUE))
         );
 
-        jTextField1.getAccessibleContext().setAccessibleDescription("");
+        tf_isbn.getAccessibleContext().setAccessibleDescription("");
 
         jLabel4.setFont(new java.awt.Font("SF UI Display ExtBd", 1, 16)); // NOI18N
         jLabel4.setText("Book");
@@ -198,21 +230,21 @@ public class ReturnBooks extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(153, 51, 0));
 
-        jLabel26.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel26.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        fill_IssueDate.setBackground(new java.awt.Color(0, 0, 0));
+        fill_IssueDate.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
-        jLabel28.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel28.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        fill_name.setBackground(new java.awt.Color(0, 0, 0));
+        fill_name.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
-        jLabel29.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel29.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        fill_title.setBackground(new java.awt.Color(0, 0, 0));
+        fill_title.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
         jLabel21.setBackground(new java.awt.Color(0, 0, 0));
         jLabel21.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel21.setText("Return Date:");
+        jLabel21.setText("Due Date:");
 
-        jLabel30.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel30.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        fill_ReturnDate.setBackground(new java.awt.Color(0, 0, 0));
+        fill_ReturnDate.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,16 +262,16 @@ public class ReturnBooks extends javax.swing.JFrame {
                             .addComponent(jLabel16))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(fill_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fill_ReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(51, 51, 51)
-                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(fill_name, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
         );
@@ -259,16 +291,16 @@ public class ReturnBooks extends javax.swing.JFrame {
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel20)
-                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16)
-                                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fill_IssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(fill_ReturnDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(fill_name, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -290,14 +322,55 @@ public class ReturnBooks extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_backMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+        if(tf_isbn.getText().isEmpty()||tf_userID.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
+        }
+        else{
+            Boolean status = accountdb.getIndex(accountindex).ReturnBook(bookdb.getIndex(bookindex));
+            if (status){
+                JOptionPane.showMessageDialog(this, "Return Success!");
+                tf_isbn.setText("");
+                tf_userID.setText("");
+                accountdb.Save();
+                bookdb.Save();
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Return Failed!");
+        }
+    }//GEN-LAST:event_ReturnActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void tf_isbnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_isbnFocusLost
+        String ISBN = tf_isbn.getText();
+        if(!ISBN.isEmpty()){
+            bookindex = searchISBN(ISBN);
+            if(bookindex == -1){
+                JOptionPane.showMessageDialog(this, "Book Not Found!");
+            }
+            else{
+
+                fill_title.setText(bookdb.getIndex(bookindex).getTitle());
+                fill_IssueDate.setText(bookdb.getIndex(bookindex).getIssue().toString());
+                fill_ReturnDate.setText(bookdb.getIndex(bookindex).getDue().toString());
+            }
+        }
+    }//GEN-LAST:event_tf_isbnFocusLost
+
+    private void tf_userIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_userIDFocusLost
+        String userID = tf_userID.getText();
+        if(!userID.isEmpty()){
+            accountindex = searchUser(userID);
+            if(accountindex == -1){
+                JOptionPane.showMessageDialog(this, "User Not Found!");
+            }
+            else{
+                fill_name.setText(accountdb.getIndex(accountindex).getName());
+            }
+        }
+    }//GEN-LAST:event_tf_userIDFocusLost
     /**
      * @param args the command line arguments
      */
@@ -336,9 +409,13 @@ public class ReturnBooks extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Return;
     private javax.swing.JLabel back;
     private javax.swing.JLabel close;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel fill_IssueDate;
+    private javax.swing.JLabel fill_ReturnDate;
+    private javax.swing.JLabel fill_name;
+    private javax.swing.JLabel fill_title;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
@@ -346,16 +423,12 @@ public class ReturnBooks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField tf_isbn;
+    private javax.swing.JTextField tf_userID;
     // End of variables declaration//GEN-END:variables
 }

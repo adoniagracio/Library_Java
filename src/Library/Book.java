@@ -61,10 +61,13 @@ public class Book implements Serializable {
     }
 
     public Account getBorrower() {
-        return borrower;
+        return this.borrower;
     }
 
-    public LocalDate getDue() {
-        return dueDate;
+    public LocalDate getIssue(){
+        return this.issueDate;
+    }
+    public LocalDate getDue(){
+        return this.dueDate;
     }
 }

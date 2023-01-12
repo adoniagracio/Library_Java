@@ -66,14 +66,18 @@ public abstract class Account implements Serializable {
         book.Borrow(this, date);
     }
 
-    public void ReturnBook(Book book){
-        if(BooksBorrowed.contains(book)){
-            BooksBorrowed.remove(book);
-            book.Return();
+    public boolean ReturnBook(Book book){
+        boolean match = false;
+        for(int i = 0; i < BooksBorrowed.size(); i++){
+            if(book.getISBN().equals(BooksBorrowed.get(i).getISBN())){
+                BooksBorrowed.remove(i);
+                book.Return();
+                System.out.println("Book returned!");
+                match = true;
+                break;
+            }
         }
-        else{
-            System.out.println("Book not found in the Borrowed list!");
-        }
+        return (match);
     }
 
     public ArrayList<Book> getBooks() {

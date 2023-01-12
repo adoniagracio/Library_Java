@@ -355,7 +355,7 @@ public class ManageBooks extends javax.swing.JFrame {
         String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
         String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         
-        tf_isbn.setText(tblTitle);
+        tf_title.setText(tblTitle);
         tf_author.setText(tblAuthor);
         tf_isbn.setText(tblISBN);
     }//GEN-LAST:event_tblDataMouseClicked
