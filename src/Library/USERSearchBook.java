@@ -349,16 +349,6 @@ public class USERSearchBook extends javax.swing.JFrame {
                 "Title", "ISBN", "Author", "Status"
             }
         ));
-        tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        DefaultTableModel tblmodel = new DefaultTableModel();
-        tblmodel.addColumn("Title");
-        tblmodel.addColumn("Author");
-        tblmodel.addColumn("ISBN");
-        tblmodel.addColumn("Status");
-        bookdb.Load();
-        for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.getStatus()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
-        }
         jScrollPane1.setViewportView(tblData);
 
         cb_searchby.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"Title", "Author", "ISBN"}));
