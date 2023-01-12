@@ -135,7 +135,6 @@ public class SearchBooks extends javax.swing.JFrame {
         tf_isbn = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         Search = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
 
@@ -230,13 +229,6 @@ public class SearchBooks extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -244,7 +236,6 @@ public class SearchBooks extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -260,9 +251,7 @@ public class SearchBooks extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(96, 96, 96)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -284,16 +273,17 @@ public class SearchBooks extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        DefaultTableModel tblmodel = new DefaultTableModel();
-        tblmodel.addColumn("Title");
-        tblmodel.addColumn("Author");
-        tblmodel.addColumn("ISBN");
-        tblmodel.addColumn("Status");
-        bookdb.Load();
-        for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
-        }
-        tblData.setModel(tblmodel);
+        tblData.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ISBN", "Title", "Author", "Quantity"
+            }
+        ));
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
@@ -400,10 +390,6 @@ public class SearchBooks extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_titleActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -448,7 +434,6 @@ public class SearchBooks extends javax.swing.JFrame {
     private javax.swing.JButton Search;
     private javax.swing.JLabel back;
     private javax.swing.JLabel close;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
