@@ -166,7 +166,7 @@ public class USERSearchBook extends javax.swing.JFrame {
 
         Say_hey.setFont(new java.awt.Font("SF UI Display SemBd", 0, 14)); // NOI18N
         Say_hey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
-        Say_hey.setText("Hello, (User)!");
+        Say_hey.setText("Hello, " + currentAccount.getNick() + "!");
 
         logout.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
         logout.setForeground(new java.awt.Color(153, 51, 0));

@@ -8,18 +8,21 @@ package Library;
  *
  * @author Adrian
  */
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
 
 public abstract class Account implements Serializable {
     private String user;
     private String pass;
     ArrayList<Book> BooksBorrowed = new ArrayList<Book>();
+    private SimpleDateFormat issueDate;
+    private SimpleDateFormat returnDate;
 
     public Account(String user, String pass) {
         System.out.println("Created: " + user);
@@ -59,7 +62,8 @@ public abstract class Account implements Serializable {
       this.pass = encrypt(pass);  
     }
 
-    public void BorrowBook(LocalDate date, Book book) {
+    public void BorrowBook(SimpleDateFormat date, Book book) {
+        this.issueDate = date;
         BooksBorrowed.add(book);
         book.Borrow(this);
     }

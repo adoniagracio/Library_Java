@@ -56,13 +56,10 @@ public class USERManageProfile extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         tf_name = new javax.swing.JTextField();
         tf_email = new javax.swing.JTextField();
         tf_nim = new javax.swing.JTextField();
         update = new javax.swing.JButton();
-        viewpass = new javax.swing.JLabel();
-        tf_pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -98,7 +95,7 @@ public class USERManageProfile extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(654, 654, 654)
                 .addComponent(close)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,13 +270,18 @@ public class USERManageProfile extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
         jLabel5.setText("Email:");
 
-        jLabel7.setFont(new java.awt.Font("SF UI Display Med", 0, 12)); // NOI18N
-        jLabel7.setText("Pass:");
-
+        tf_name.setText("helloworld");
         tf_name.setToolTipText("");
+        tf_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_nameActionPerformed(evt);
+            }
+        });
 
+        tf_email.setText("email");
         tf_email.setToolTipText("");
 
+        tf_nim.setText("username");
         tf_nim.setToolTipText("");
 
         update.setText("Update");
@@ -288,18 +290,6 @@ public class USERManageProfile extends javax.swing.JFrame {
                 updateActionPerformed(evt);
             }
         });
-
-        viewpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-eye-20.png"))); // NOI18N
-        viewpass.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                viewpassMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                viewpassMouseReleased(evt);
-            }
-        });
-
-        tf_pass.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -311,22 +301,19 @@ public class USERManageProfile extends javax.swing.JFrame {
                 .addGap(168, 168, 168)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jLabel1)
-                    .addComponent(update)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel4)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(jLabel2))
                         .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tf_nim, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(tf_email, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(tf_name, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(tf_pass))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewpass)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(update)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tf_nim, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(tf_email, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                .addComponent(tf_name, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -350,12 +337,7 @@ public class USERManageProfile extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(tf_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(viewpass)
-                            .addComponent(tf_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addGap(18, 18, 18)
                         .addComponent(update))))
         );
 
@@ -369,22 +351,7 @@ public class USERManageProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        accountdb.Load();
-        String nim, name, email, pass;
-        for(Account a : accountdb.getList()){
-            if(UserID = currentAccount){
-                nim = tf_nim.getText();
-                name = tf_name.getText();
-                email = tf_email.getText();
-                pass = tf_email.getText();
-            }
-        }
-        
-        tf_nim.setText(nim);
-        tf_name.setText(name);
-        tf_email.setText(email);
-        tf_pass.setText(pass);
-        
+
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
@@ -436,7 +403,7 @@ public class USERManageProfile extends javax.swing.JFrame {
         String pass = tf_pass.getText();
         
         for (int i=0; i<accountdb.getSize(); i++) {
-            if (accountdb.getIndex(i).getName().equals(user)) {
+            if (accountdb.getIndex(i).getName().equals(currentAccount.getName())) {
                 accountdb.update(i, new User(tf_nim.getText(), tf_pass.getText(), tf_name.getText() ,tf_email.getText()));
             }
         }
@@ -446,13 +413,9 @@ public class USERManageProfile extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Data successfully updated.");
     }//GEN-LAST:event_updateActionPerformed
 
-    private void viewpassMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewpassMousePressed
-        tf_pass.setEchoChar((char)0);
-    }//GEN-LAST:event_viewpassMousePressed
-
-    private void viewpassMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewpassMouseReleased
-        tf_pass.setEchoChar('*'); 
-    }//GEN-LAST:event_viewpassMouseReleased
+    private void tf_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_nameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_nameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -493,7 +456,6 @@ public class USERManageProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -503,8 +465,6 @@ public class USERManageProfile extends javax.swing.JFrame {
     private javax.swing.JTextField tf_email;
     private javax.swing.JTextField tf_name;
     private javax.swing.JTextField tf_nim;
-    private javax.swing.JPasswordField tf_pass;
     private javax.swing.JButton update;
-    private javax.swing.JLabel viewpass;
     // End of variables declaration//GEN-END:variables
 }

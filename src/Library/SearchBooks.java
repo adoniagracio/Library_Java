@@ -4,6 +4,7 @@
  */
 package Library;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -85,6 +86,16 @@ public class SearchBooks extends javax.swing.JFrame {
         }
     }
     
+    void updateData(String title, String author, String isbn){
+        File oldFile = new File(f + "\\books.txt");
+        File newFile = new File(f + "\\temp.txt");
+        
+    }
+    
+    void deleteData(){
+        
+    }
+    
     void countLines(){
         try{
             ln = 0;
@@ -119,11 +130,12 @@ public class SearchBooks extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         tf_title = new javax.swing.JTextField();
+        tf_author = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        tf_isbn = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         Search = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        tf_author = new javax.swing.JTextField();
-        tf_isbn = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
 
@@ -186,14 +198,29 @@ public class SearchBooks extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
         jLabel3.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel3.setText("Search by");
+        jLabel3.setText("Title");
 
         tf_title.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_title.setToolTipText("Enter book information");
+        tf_title.setToolTipText("Enter book title");
+        tf_title.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_titleActionPerformed(evt);
+            }
+        });
+
+        tf_author.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_author.setToolTipText("Enter book author");
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel5.setText("Search");
+        jLabel5.setText("Author");
+
+        tf_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        tf_isbn.setToolTipText("Enter ISBN");
+
+        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel7.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
+        jLabel7.setText("ISBN");
 
         Search.setFont(new java.awt.Font("SF UI Display", 0, 11)); // NOI18N
         Search.setText("Search");
@@ -203,18 +230,12 @@ public class SearchBooks extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Title", "Author", "ISBN"}));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-
-        tf_author.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_author.setToolTipText("Enter book information");
-
-        tf_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tf_isbn.setToolTipText("Enter book information");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -222,61 +243,60 @@ public class SearchBooks extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5)
-                    .addComponent(tf_title)
-                    .addComponent(Search)
-                    .addComponent(jComboBox1, 0, 145, Short.MAX_VALUE)
-                    .addComponent(tf_author)
-                    .addComponent(tf_isbn))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(tf_author, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7)
+                            .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Search))
                 .addContainerGap(39, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(123, 123, 123)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(56, 56, 56)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_author, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tf_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Search)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
+
+        tf_title.getAccessibleContext().setAccessibleDescription("");
 
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title", "Author", "ISBN", "Status"
-            }
-        ));
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book b : bookdb.getList()){
+            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
-            }
-        });
-        tblData.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                tblDataComponentShown(evt);
             }
         });
         jScrollPane1.setViewportView(tblData);
@@ -318,14 +338,12 @@ public class SearchBooks extends javax.swing.JFrame {
         home.setVisible(true);
         dispose();
     }//GEN-LAST:event_backMouseClicked
-    
     int searchBuku(JTable e, String x,String y,String z, int i, int j) {
-        //DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
         while (i <= j) {
             int mid = (i + j) / 2;
             if (x.equals(tblData.getValueAt(mid, 0))) {
                 tf_title.setText(tblData.getValueAt(mid, 1).toString());
-                tf_title.setText(tblData.getValueAt(mid, 2).toString());
+                tf_author.setText(tblData.getValueAt(mid, 2).toString());
                 tf_isbn.setText(tblData.getValueAt(mid, 3).toString());
                 return 3;
             } else if (x.compareTo((String) tblData.getValueAt(mid, 0)) < 0) {
@@ -350,9 +368,9 @@ public class SearchBooks extends javax.swing.JFrame {
         createFolder();
         readFile();
         countLines();
-        addData(tf_title.getText(), tf_title.getText(), tf_isbn.getText());
+        addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText());
         try {
-            int index = searchBuku(tblData, tf_title.getText(),tf_title.getText(),tf_isbn.getText(), 0, tblData.getRowCount());
+            int index = searchBuku(tblData, tf_title.getText(),tf_author.getText(),tf_isbn.getText(), 0, tblData.getRowCount());
             if (index == -1) {
                 JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
             } else {
@@ -374,16 +392,17 @@ public class SearchBooks extends javax.swing.JFrame {
         String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
         
         tf_title.setText(tblTitle);
-        tf_title.setText(tblAuthor);
+        tf_author.setText(tblAuthor);
         tf_isbn.setText(tblISBN);
     }//GEN-LAST:event_tblDataMouseClicked
+
+    private void tf_titleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_titleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tf_titleActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void tblDataComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tblDataComponentShown
-    }//GEN-LAST:event_tblDataComponentShown
 
     /**
      * @param args the command line arguments
@@ -433,6 +452,7 @@ public class SearchBooks extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

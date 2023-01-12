@@ -245,16 +245,16 @@ public class Reset_pass extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseEntered
+
+    }//GEN-LAST:event_CloseMouseEntered
+
+    private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked
         Log_Form rgf = new Log_Form();
         rgf.setVisible(true);
         rgf.pack();
         rgf.setLocationRelativeTo(null);
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_CloseMouseEntered
-
-    private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked
-        // TODO add your handling code here:
     }//GEN-LAST:event_CloseMouseClicked
 
     private void Code_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Code_verActionPerformed

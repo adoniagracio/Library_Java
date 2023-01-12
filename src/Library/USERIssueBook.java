@@ -224,7 +224,7 @@ public class USERIssueBook extends javax.swing.JFrame {
 
         Say_hey1.setFont(new java.awt.Font("SF UI Display SemBd", 0, 14)); // NOI18N
         Say_hey1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
-        Say_hey1.setText("Hello, (User)!");
+        Say_hey1.setText("Hello, " + currentAccount.getNick() + "!");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

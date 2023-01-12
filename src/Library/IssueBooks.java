@@ -106,8 +106,6 @@ public class IssueBooks extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
@@ -115,8 +113,6 @@ public class IssueBooks extends javax.swing.JFrame {
         fill_email = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         fill_name = new javax.swing.JLabel();
-        fill_phone = new javax.swing.JLabel();
-        fill_qty = new javax.swing.JLabel();
         fill_isbn = new javax.swing.JLabel();
         fill_title = new javax.swing.JLabel();
         fill_author = new javax.swing.JLabel();
@@ -202,6 +198,11 @@ public class IssueBooks extends javax.swing.JFrame {
                 tf_userIDFocusLost(evt);
             }
         });
+        tf_userID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tf_userIDKeyPressed(evt);
+            }
+        });
 
         jLabel5.setBackground(new java.awt.Color(0, 0, 0));
         jLabel5.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
@@ -234,11 +235,11 @@ public class IssueBooks extends javax.swing.JFrame {
         tf_issueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
         tf_issueDate.setToolTipText("Enter issue date");
         tf_issueDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            // public void focusLost(java.awt.event.FocusEvent evt) {
-            //     tf_issueDateFocusLost(evt);
-            // }
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tf_issueDateFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tf_issueDateFocusLost(evt);
             }
         });
 
@@ -319,14 +320,6 @@ public class IssueBooks extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel14.setText("Name:");
 
-        jLabel15.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel15.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel15.setText("Phone: ");
-
-        jLabel16.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel16.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        jLabel16.setText("Quantity: ");
-
         jLabel17.setBackground(new java.awt.Color(0, 0, 0));
         jLabel17.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
         jLabel17.setText("ISBN: ");
@@ -353,12 +346,6 @@ public class IssueBooks extends javax.swing.JFrame {
         fill_name.setBackground(new java.awt.Color(0, 0, 0));
         fill_name.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
-        fill_phone.setBackground(new java.awt.Color(0, 0, 0));
-        fill_phone.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-
-        fill_qty.setBackground(new java.awt.Color(0, 0, 0));
-        fill_qty.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-
         fill_isbn.setBackground(new java.awt.Color(0, 0, 0));
         fill_isbn.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
 
@@ -381,27 +368,27 @@ public class IssueBooks extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(15, 15, 15)
-                        .addComponent(fill_userID, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(25, 25, 25)
-                        .addComponent(fill_name, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(20, 20, 20)
-                        .addComponent(fill_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()    
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addGap(15, 15, 15)
+                                .addComponent(fill_userID, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(25, 25, 25)
+                                .addComponent(fill_name, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12)
                         .addGap(26, 26, 26)
-                        .addComponent(fill_email, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                        .addComponent(fill_email, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -416,10 +403,6 @@ public class IssueBooks extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(fill_isbn, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(9, 9, 9)
-                                .addComponent(fill_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel19)
                                 .addGap(26, 26, 26)
                                 .addComponent(fill_title, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -427,7 +410,7 @@ public class IssueBooks extends javax.swing.JFrame {
                                 .addComponent(jLabel20)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(fill_author, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -448,15 +431,11 @@ public class IssueBooks extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel14)
                             .addComponent(fill_name, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15)
-                            .addComponent(fill_phone, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(fill_email, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(85, 85, 85)
+                        .addGap(113, 113, 113)
                         .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -476,11 +455,7 @@ public class IssueBooks extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel20)
                             .addComponent(fill_author, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16)
-                            .addComponent(fill_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(104, 104, 104)
+                        .addGap(132, 132, 132)
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -501,7 +476,14 @@ public class IssueBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseClicked
 
     private void IssueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueButtonActionPerformed
-        // TODO add your handling code here:
+        if(tf_isbn.getText().isEmpty() || tf_userID.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "FILL");
+        }
+        else{
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            accountdb.getIndex(accountindex).BorrowBook(sdf.format(cal.getTime()), null);
+        }
     }//GEN-LAST:event_IssueButtonActionPerformed
 
     private void tf_returnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_returnDateActionPerformed
@@ -623,16 +605,12 @@ public class IssueBooks extends javax.swing.JFrame {
     private javax.swing.JLabel fill_email;
     private javax.swing.JLabel fill_isbn;
     private javax.swing.JLabel fill_name;
-    private javax.swing.JLabel fill_phone;
-    private javax.swing.JLabel fill_qty;
     private javax.swing.JLabel fill_title;
     private javax.swing.JLabel fill_userID;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
