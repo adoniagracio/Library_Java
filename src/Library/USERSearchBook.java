@@ -114,6 +114,7 @@ public class USERSearchBook extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
         cb_searchby = new javax.swing.JComboBox<>();
+        Say_hey3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -149,7 +150,7 @@ public class USERSearchBook extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(654, 654, 654)
                 .addComponent(close)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,7 +167,7 @@ public class USERSearchBook extends javax.swing.JFrame {
 
         Say_hey.setFont(new java.awt.Font("SF UI Display SemBd", 0, 14)); // NOI18N
         Say_hey.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user.png"))); // NOI18N
-        Say_hey.setText("Hello, " + currentAccount.getNick() + "!");
+        Say_hey.setText("Hello, (User)!");
 
         logout.setFont(new java.awt.Font("SF UI Display SemBd", 0, 12)); // NOI18N
         logout.setForeground(new java.awt.Color(153, 51, 0));
@@ -358,6 +359,14 @@ public class USERSearchBook extends javax.swing.JFrame {
             }
         });
 
+        Say_hey3.setFont(new java.awt.Font("SF UI Display ExtBd", 0, 14)); // NOI18N
+        Say_hey3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-back-20.png"))); // NOI18N
+        Say_hey3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Say_hey3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -370,6 +379,8 @@ public class USERSearchBook extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Say_hey1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Say_hey3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cb_searchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tf_search, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,7 +400,8 @@ public class USERSearchBook extends javax.swing.JFrame {
                             .addComponent(Say_hey1)
                             .addComponent(tf_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(search)
-                            .addComponent(cb_searchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cb_searchby, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Say_hey3))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -496,6 +508,12 @@ public class USERSearchBook extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tf_searchActionPerformed
 
+    private void Say_hey3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Say_hey3MouseClicked
+        USERSearchBook search = new USERSearchBook(currentAccount);
+        search.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_Say_hey3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -582,6 +600,7 @@ public class USERSearchBook extends javax.swing.JFrame {
     private javax.swing.JLabel Say_hey;
     private javax.swing.JLabel Say_hey1;
     private javax.swing.JLabel Say_hey2;
+    private javax.swing.JLabel Say_hey3;
     private javax.swing.JLabel Say_hey4;
     private javax.swing.JLabel Say_hey5;
     private javax.swing.JComboBox<String> cb_searchby;

@@ -422,13 +422,21 @@
     </Component>
     <Component class="javax.swing.JTextField" name="tf_email">
       <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="c8" green="d0" red="d4" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="email"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tf_nim">
       <Properties>
-        <Property name="text" type="java.lang.String" value="username"/>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="c8" green="d0" red="d4" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="NIM"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>

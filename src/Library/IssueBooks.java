@@ -477,6 +477,7 @@ public class IssueBooks extends javax.swing.JFrame {
         }
         else{
             accountdb.getIndex(accountindex).BorrowBook(LocalDate.now(), bookdb.getIndex(bookindex));
+            JOptionPane.showMessageDialog(this, "Borrow Success!");
             accountdb.Save();
             bookdb.Save();
         }

@@ -278,10 +278,14 @@ public class USERManageProfile extends javax.swing.JFrame {
             }
         });
 
+        tf_email.setEditable(false);
+        tf_email.setBackground(new java.awt.Color(212, 208, 200));
         tf_email.setText("email");
         tf_email.setToolTipText("");
 
-        tf_nim.setText("username");
+        tf_nim.setEditable(false);
+        tf_nim.setBackground(new java.awt.Color(212, 208, 200));
+        tf_nim.setText("NIM");
         tf_nim.setToolTipText("");
 
         update.setText("Update");

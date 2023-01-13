@@ -4,17 +4,8 @@
  */
 package Library;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.RowSorter;
@@ -33,9 +24,6 @@ public class SearchBooks extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String isbn, title, author;
-    int ln, row = 0;
-    //int qty;
 
     private static db<Book> bookdb = new db<Book>("bookdb");
     private static Account currentAccount;
@@ -44,76 +32,6 @@ public class SearchBooks extends javax.swing.JFrame {
         initComponents();
     }
     
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(SearchBooks.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void addData(String title, String author, String isbn){
-        try {
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; i < ln; i++){
-                raf.readLine();
-            }
-            if(ln > 0) raf.writeBytes("\r\n");
-            raf.writeBytes(title + " / " + author + " / " + isbn);
-            /*
-            raf.writeBytes("Title: " + title + "\r\n");
-            raf.writeBytes("Author: " + author + "\r\n");
-            raf.writeBytes("ISBN: " + isbn);
-            */
-        } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CreateFile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    }
-    
-    void updateData(String title, String author, String isbn){
-        File oldFile = new File(f + "\\books.txt");
-        File newFile = new File(f + "\\temp.txt");
-        
-    }
-    
-    void deleteData(){
-        
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(SearchBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(SearchBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    //static Object col[] = {"Title", "Author", "ISBN"};
-    //DefaultTableModel tbl = new DefaultTableModel(col, row);
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -273,17 +191,16 @@ public class SearchBooks extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         tblData.setFont(new java.awt.Font("SF UI Display", 0, 12)); // NOI18N
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ISBN", "Title", "Author", "Quantity"
-            }
-        ));
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book a : bookdb.getList()){
+            tblmodel.addRow(new Object[] {a.getTitle(), a.getAuthor(), a.getISBN(), (a.isAvailable())? "Available" : "Borrowed by: " +  a.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
         tblData.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDataMouseClicked(evt);
@@ -355,20 +272,6 @@ public class SearchBooks extends javax.swing.JFrame {
         ka.add(new RowSorter.SortKey(kolomke, SortOrder.ASCENDING));
         tblModel.setSortKeys(ka);
         tblModel.sort();
-        createFolder();
-        readFile();
-        countLines();
-        addData(tf_title.getText(), tf_author.getText(), tf_isbn.getText());
-        try {
-            int index = searchBuku(tblData, tf_title.getText(),tf_author.getText(),tf_isbn.getText(), 0, tblData.getRowCount());
-            if (index == -1) {
-                JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
-            } else {
-                JOptionPane.showMessageDialog(null, "Data ditemukan");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Data tidak ditemukan");
-        }
     }//GEN-LAST:event_SearchActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
