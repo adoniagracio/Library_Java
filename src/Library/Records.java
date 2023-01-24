@@ -4,22 +4,10 @@
  */
 package Library;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -30,52 +18,11 @@ public class Records extends javax.swing.JFrame {
     /**
      * Creates new form ManageBooks
      */
-    String userID, name, phone, email;
-    String title, author, isbn;
-    int ln;
-    //int qty;
-    
+    private static db<Rec> recorddb = new db<Rec>("recorddb");
     private static Account currentAccount;
     public Records(Account acc) {
         currentAccount = acc;
         initComponents();
-    }
-    
-    File f = new File("C:\\Users\\acer\\Documents\\Vanessa\\BINUS\\OOP\\File");
-    void createFolder(){
-        if(!f.exists()){
-            f.mkdirs(); 
-        }
-    }
-    
-    void readFile(){
-        try{
-           FileReader fr = new FileReader(f + "\\books.txt");
-           System.out.println("File exists.");
-        } catch(FileNotFoundException ex){
-            try {
-                //tambahin try catch
-                FileWriter fw = new FileWriter(f + "\\books.txt");
-                System.out.println("File created.");
-            } catch (IOException ex1) {
-                Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex1);
-            }
-        }
-    }
-    
-    void countLines(){
-        try{
-            ln = 0;
-            RandomAccessFile raf = new RandomAccessFile(f + "\\books.txt", "rw");
-            for(int i = 0; raf.readLine() != null; i++){
-                ln++;
-            }
-            System.out.println("Number of lines: " + ln);
-        } catch(FileNotFoundException ex){
-           Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(ManageBooks.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void clearTbl(){
@@ -221,17 +168,16 @@ public class Records extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        tblData.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "User ID", "Book Title", "Name", "Issue Date", "Return Date", "Status"
+            DefaultTableModel tblmodel = new DefaultTableModel();
+            tblmodel.addColumn("UserID");
+            tblmodel.addColumn("ISBN");
+            tblmodel.addColumn("Issue Date");
+            tblmodel.addColumn("Return Date");
+            recorddb.Load();
+            for(Rec a : recorddb.getList()){
+                tblmodel.addRow(new Object[] {a.getUserID(), a.getISBN(), a.getissueDate(), LocalDate.now()});
             }
-        ));
+        tblData.setModel(tblmodel);
         jScrollPane1.setViewportView(tblData);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -244,6 +190,7 @@ public class Records extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+        tblData.setModel(tblmodel);
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()

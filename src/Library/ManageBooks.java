@@ -21,12 +21,6 @@ import javax.swing.table.DefaultTableModel;
  * @author acer
  */
 public class ManageBooks extends javax.swing.JFrame {
-    //BELOM BIKIN UPDATE SM DELETE DI FILE
-
-    /**
-     * Creates new form ManageBooks
-     */
-    
     private static db<Book> bookdb = new db<Book>("bookdb");
     private static Account currentAccount;
     public ManageBooks(Account admin) {
@@ -307,7 +301,7 @@ public class ManageBooks extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Data successfully added.");
         tf_isbn.setText("");
         tf_author.setText("");
-        tf_isbn.setText("");
+        tf_title.setText("");
     }
     
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed

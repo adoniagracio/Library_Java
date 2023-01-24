@@ -192,7 +192,7 @@ public class Log_Form extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(SignInButton)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
@@ -245,9 +245,8 @@ public class Log_Form extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Gabriola", 0, 36)); // NOI18N
         jLabel8.setText("LOGIN");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 43, 95, -1));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 120, -1));
 
-        showpass.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_eye_24px.png")); // NOI18N
         showpass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showpassMouseClicked(evt);
@@ -255,7 +254,6 @@ public class Log_Form extends javax.swing.JFrame {
         });
         jPanel3.add(showpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
-        hidepass.setIcon(new javax.swing.ImageIcon("C:\\Users\\adoni\\OneDrive\\Dokumen\\NetBeansProjects\\Library1\\src\\icon\\icons8_invisible_24px.png")); // NOI18N
         hidepass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 hidepassMouseClicked(evt);

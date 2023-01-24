@@ -1,18 +1,16 @@
 package Library;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
-public class Rec {
+public class Rec implements Serializable{
     private String UserID;
-    private String BookTitle;
-    private String username;
-    private SimpleDateFormat issueDate;
-    private SimpleDateFormat returnDate;
+    private String isbn;
+    private LocalDate issueDate;
+    private LocalDate returnDate;
 
-    public Rec(String UserID, String BookTitle, String username, SimpleDateFormat issueDate, SimpleDateFormat returnDate){
+    public Rec(String UserID, String isbn, LocalDate issueDate, LocalDate returnDate){
         this.UserID = UserID;
-        this.BookTitle = BookTitle;
-        this.username = username;
+        this.isbn = isbn;
         this.issueDate = issueDate;
         this.returnDate = returnDate;
     }
@@ -20,16 +18,13 @@ public class Rec {
     public String getUserID(){
         return this.UserID;
     }
-    public String getBookTitle(){
-        return this.BookTitle;
+    public String getISBN(){
+        return this.isbn;
     }
-    public String getUsername(){
-        return this.username;
-    }
-    public SimpleDateFormat getissueDate(){
+    public LocalDate getissueDate(){
         return this.issueDate;
     }
-    public SimpleDateFormat getreturnDate(){
+    public LocalDate getreturnDate(){
         return this.returnDate;
     }
 }

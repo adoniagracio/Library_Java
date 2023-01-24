@@ -5,7 +5,8 @@
 package Library;
 
 import java.util.ArrayList;
-
+import java.io.File;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,6 +20,7 @@ public class ReturnBooks extends javax.swing.JFrame {
      */
     private static db<Account> accountdb = new db<Account>("accountdb");
     private static db<Book> bookdb = new db<Book>("bookdb");
+    private static db<Rec> recorddb = new db<Rec>("recorddb");
     private static int bookindex = -1; 
     private static int accountindex = -1; 
     private static Account currentAccount;
@@ -329,6 +331,10 @@ public class ReturnBooks extends javax.swing.JFrame {
         else{
             Boolean status = accountdb.getIndex(accountindex).ReturnBook(bookdb.getIndex(bookindex));
             if (status){
+                if(new File("src/recorddb.bin").exists())
+                    recorddb.Load();
+                recorddb.add(new Rec(accountdb.getIndex(accountindex).getName().toString(), bookdb.getIndex(bookindex).getISBN().toString(), bookdb.getIndex(bookindex).getIssue(), LocalDate.now()));
+                recorddb.Save();
                 JOptionPane.showMessageDialog(this, "Return Success!");
                 tf_isbn.setText("");
                 tf_userID.setText("");
