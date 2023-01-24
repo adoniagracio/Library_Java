@@ -15,9 +15,6 @@ import javax.swing.JOptionPane;
  */
 public class ReturnBooks extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ManageBooks
-     */
     private static db<Account> accountdb = new db<Account>("accountdb");
     private static db<Book> bookdb = new db<Book>("bookdb");
     private static db<Rec> recorddb = new db<Rec>("recorddb");
