@@ -249,6 +249,7 @@ public class Log_Form extends javax.swing.JFrame {
         jLabel8.setText("LOGIN");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 120, -1));
 
+        showpass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-eye-20.png"))); // NOI18N
         showpass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 showpassMouseClicked(evt);
@@ -256,6 +257,7 @@ public class Log_Form extends javax.swing.JFrame {
         });
         jPanel3.add(showpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, -1, -1));
 
+        hidepass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_invisible_24px.png"))); // NOI18N
         hidepass.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 hidepassMouseClicked(evt);
