@@ -263,15 +263,26 @@ public class SearchBooks extends javax.swing.JFrame {
     }
         
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-        //gabisa nampilin data dr notepad ke tabel
-        //tmbhin kalo null
-        TableRowSorter<TableModel> tblModel = new TableRowSorter<>(tblData.getModel());
-        tblData.setRowSorter(tblModel);
-        List<RowSorter.SortKey> ka = new ArrayList<>();
-        int kolomke = 0;
-        ka.add(new RowSorter.SortKey(kolomke, SortOrder.ASCENDING));
-        tblModel.setSortKeys(ka);
-        tblModel.sort();
+        // TableRowSorter<TableModel> tblModel = new TableRowSorter<>(tblData.getModel());
+        // tblData.setRowSorter(tblModel);
+        // List<RowSorter.SortKey> ka = new ArrayList<>();
+        // int kolomke = 0;
+        // ka.add(new RowSorter.SortKey(kolomke, SortOrder.ASCENDING));
+        // tblModel.setSortKeys(ka);
+        // tblModel.sort();
+        DefaultTableModel tblmodel = new DefaultTableModel();
+        tblmodel.addColumn("Title");
+        tblmodel.addColumn("Author");
+        tblmodel.addColumn("ISBN");
+        tblmodel.addColumn("Status");
+        bookdb.Load();
+        for(Book a : bookdb.getList()){
+            if(a.getTitle().equals(tf_title.getText())||
+            a.getAuthor().equals(tf_author.getText())||
+            a.getISBN().equals(tf_isbn.getText()))
+            tblmodel.addRow(new Object[] {a.getTitle(), a.getAuthor(), a.getISBN(), (a.isAvailable())? "Available" : "Borrowed by: " +  a.getBorrower().getName()});
+        }
+        tblData.setModel(tblmodel);
     }//GEN-LAST:event_SearchActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -280,9 +291,9 @@ public class SearchBooks extends javax.swing.JFrame {
     private void tblDataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDataMouseClicked
         //taro di text field
         DefaultTableModel tblModel = (DefaultTableModel)tblData.getModel();
-        String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
-        String tblTitle = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
-        String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
+        String tblISBN = tblModel.getValueAt(tblData.getSelectedRow(), 2).toString();
+        String tblTitle = tblModel.getValueAt(tblData.getSelectedRow(), 0).toString();
+        String tblAuthor = tblModel.getValueAt(tblData.getSelectedRow(), 1).toString();
         
         tf_title.setText(tblTitle);
         tf_author.setText(tblAuthor);
