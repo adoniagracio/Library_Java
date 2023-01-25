@@ -326,11 +326,12 @@ public class ReturnBooks extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
         }
         else{
+            LocalDate tmp = bookdb.getIndex(bookindex).getIssue();
             Boolean status = accountdb.getIndex(accountindex).ReturnBook(bookdb.getIndex(bookindex));
             if (status){
                 if(new File("src/recorddb.bin").exists())
                     recorddb.Load();
-                recorddb.add(new Rec(accountdb.getIndex(accountindex).getName().toString(), bookdb.getIndex(bookindex).getISBN().toString(), bookdb.getIndex(bookindex).getIssue(), LocalDate.now()));
+                recorddb.add(new Rec(accountdb.getIndex(accountindex).getName().toString(), bookdb.getIndex(bookindex).getISBN().toString(), tmp, LocalDate.now()));
                 recorddb.Save();
                 JOptionPane.showMessageDialog(this, "Return Success!");
                 tf_isbn.setText("");

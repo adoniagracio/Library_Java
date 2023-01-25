@@ -229,7 +229,7 @@ public class IssueBooks extends javax.swing.JFrame {
             }
         });
 
-        tf_issueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
+        // tf_issueDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat(""))));
         tf_issueDate.setToolTipText("Enter issue date");
         tf_issueDate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -469,7 +469,7 @@ public class IssueBooks extends javax.swing.JFrame {
     }//GEN-LAST:event_backMouseClicked
 
     private void IssueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IssueButtonActionPerformed
-        if(tf_isbn.getText().isEmpty() || tf_userID.getText().isEmpty()){
+        if(tf_isbn.getText().isEmpty() || tf_userID.getText().isEmpty() || tf_issueDate.getText().isEmpty() || tf_returnDate.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
         }
         else if(!bookdb.getIndex(bookindex).isAvailable()){
@@ -481,7 +481,7 @@ public class IssueBooks extends javax.swing.JFrame {
             accountdb.Save();
             bookdb.Save();
         }
-    }//GEN-LAST:event_IssueButtonActionPerformed
+    }//GEN-LAST:event_IssueButtonActionPerformed    
 
     private void tf_isbnFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tf_isbnFocusLost
         String ISBN = tf_isbn.getText();

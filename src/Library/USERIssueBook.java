@@ -5,6 +5,7 @@
 package Library;
 
 import Library.Account;
+import java.time.LocalDate;
 import Library.Log_Form;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +21,7 @@ public class USERIssueBook extends javax.swing.JFrame {
      * Creates new form ManageBooks
      */
     
-    private static db<Book> bookdb = new db<Book>("bookdb");
+    private static db<Rec> recorddb = new db<Rec>("recorddb");
     private static Account currentAccount;
     public USERIssueBook(Account user) {
         currentAccount = user;
@@ -338,15 +339,16 @@ public class USERIssueBook extends javax.swing.JFrame {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         DefaultTableModel tblmodel = new DefaultTableModel();
-        tblmodel.addColumn("Title");
-        tblmodel.addColumn("Author");
-        tblmodel.addColumn("ISBN");
-        tblmodel.addColumn("Status");
-        bookdb.Load();
-        for(Book b : bookdb.getList()){
-            tblmodel.addRow(new Object[] {b.getTitle(), b.getAuthor(), b.getISBN(), b.isAvailable()?"Available" : "Borrowed by: " + b.getBorrower().getName()});
-        }
+            tblmodel.addColumn("UserID");
+            tblmodel.addColumn("ISBN");
+            tblmodel.addColumn("Issue Date");
+            tblmodel.addColumn("Return Date");
+            recorddb.Load();
+            for(Rec a : recorddb.getList()){
+                tblmodel.addRow(new Object[] {a.getUserID(), a.getISBN(), a.getissueDate(), a.getreturnDate()});
+            }
         tblData.setModel(tblmodel);
+        jScrollPane1.setViewportView(tblData);
     }//GEN-LAST:event_formComponentShown
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked

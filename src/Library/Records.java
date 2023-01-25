@@ -4,7 +4,6 @@
  */
 package Library;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -175,7 +174,7 @@ public class Records extends javax.swing.JFrame {
             tblmodel.addColumn("Return Date");
             recorddb.Load();
             for(Rec a : recorddb.getList()){
-                tblmodel.addRow(new Object[] {a.getUserID(), a.getISBN(), a.getissueDate(), LocalDate.now()});
+                tblmodel.addRow(new Object[] {a.getUserID(), a.getISBN(), a.getissueDate(), a.getreturnDate()});
             }
         tblData.setModel(tblmodel);
         jScrollPane1.setViewportView(tblData);
