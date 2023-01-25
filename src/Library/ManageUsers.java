@@ -6,6 +6,7 @@ package Library;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.util.regex.*;  
 
 /**
  *
@@ -291,6 +292,8 @@ public class ManageUsers extends javax.swing.JFrame {
         if(tf_userID.getText().isEmpty() || tf_name.getText().isEmpty() || tf_email.getText().isEmpty()){
             JOptionPane.showMessageDialog(this, "Entry cannot be empty!");
         }
+        // else if (!Pattern.matches("[A-Za-z0-9]+", tf_userID.getText()))
+                // JOptionPane.showMessageDialog(this, "Username invalid!");
         else if(tblData.getSelectedRowCount() == 1){
             if(!accountdb.getIndex(tblData.getSelectedRow()).isAdmin()){
                 String userID = tf_userID.getText();
@@ -300,6 +303,7 @@ public class ManageUsers extends javax.swing.JFrame {
                 tblModel.setValueAt(name, tblData.getSelectedRow(), 1);
                 tblModel.setValueAt(email, tblData.getSelectedRow(), 2);
                 accountdb.update(tblData.getSelectedRow(), new User(userID, "Password", name, email));
+                accountdb.Save();
                 JOptionPane.showMessageDialog(this, "Data successfully updated.");
             }
             else{

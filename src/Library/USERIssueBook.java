@@ -345,6 +345,7 @@ public class USERIssueBook extends javax.swing.JFrame {
             tblmodel.addColumn("Return Date");
             recorddb.Load();
             for(Rec a : recorddb.getList()){
+                if(a.getUserID().equals(currentAccount.getName()))
                 tblmodel.addRow(new Object[] {a.getUserID(), a.getISBN(), a.getissueDate(), a.getreturnDate()});
             }
         tblData.setModel(tblmodel);
